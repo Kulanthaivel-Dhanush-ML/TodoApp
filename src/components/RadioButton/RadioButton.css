@@ -1,0 +1,22 @@
+.radio-btn.high {
+    background-color: #ff4d4d; /* Red for High priority */
+    color: white;
+  }
+  
+  .radio-btn.medium {
+    background-color: #ffcc00; /* Yellow for Medium priority */
+    color: black;
+  }
+  
+  .radio-btn.low {
+    background-color: #66cc66; /* Green for Low priority */
+    color: white;
+  }
+  
+  /* Default radio button (when not selected) */
+  .radio-btn.default {
+    background-color: white;
+    color: black;
+    border: 2px solid #ddd;
+  }
+  

@@ -1,0 +1,124 @@
+.Todo {
+    display: flex;
+    justify-content: center;
+    margin: 1%;
+    color: #FFD2A0;
+    
+}
+
+
+.NewItemAdd,
+.NewItemAdd>*,.displayTodo,.displayTodo>* {
+    background-color: #FFD2A0;
+}
+
+
+
+.NewItemAdd {
+    border-radius: 5px;
+    border: 1px solid #A888B5;
+    margin: 3% 15%;
+    padding: 3%;
+}
+
+.NewItemAdd>* {
+    padding: 5px;
+    font-weight: 700;
+}
+
+/* Labels */
+.TodoTitleLabel,
+.DescLabel {
+    font-weight: 500;
+    font-size: 25px;
+}
+
+
+.buttons>* {
+    padding: 2%;
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+}
+
+
+.TodoTitleInputBox>input,
+.DescTextArea>textarea,
+.tag>input {
+    background-color: #A888B5;
+    padding: 10px 10px;
+    font-size: 16px;
+    border-radius: 4px;
+    border: 1px solid #A888B5;
+    width: 100%;
+}
+
+.TodoTitleInputBox>input::placeholder,
+.DescTextArea>textarea::placeholder,
+.tag>input::placeholder {
+    color: #FFD2A0;
+    padding: 4px;
+    font-weight: 500;
+}
+
+
+.tag{
+    padding: 5px;
+    width: calc(50% - 5px);
+}
+
+.tag>*
+{
+    margin: 3px 3px;
+}
+
+.DescTextArea>textarea:focus,
+.TodoTitleInputBox>input:focus {
+    background-color: #A888B5;
+    box-shadow: 0 0 0 .25rem #A888B5;
+}
+
+
+.Details {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+
+.box {
+    width: calc(50% - 5px);
+    height: 100%;
+    padding: 5px;
+    margin: 3px 0px;
+    border-radius: 4px;
+}
+
+.link{
+    display: flex;
+    justify-content: center;
+    text-decoration: none;
+}
+
+
+@media (max-width: 768px) {
+    .box {
+        width: 100%;
+    }
+
+    .NewItemAdd {
+        margin: 3% 5%;
+    }
+
+    .tag
+    {
+        width: 100%;
+    }
+}
+
+label{
+    font-weight: 600;
+}
+
