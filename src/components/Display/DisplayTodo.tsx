@@ -31,7 +31,7 @@ const DisplayTodo: FC = () => {
 
         const message = localStorage.getItem('successMessage');
         if (message) {
-            toast.success(message,{theme:'colored'});
+            toast.success(message, { theme: 'colored' });
             // localStorage.removeItem('successMessage');
         }
     }, []);
@@ -115,17 +115,17 @@ const DisplayTodo: FC = () => {
     }
 
     const handleStatusUpdate = () => {
-        updatestatus(clickedItem, 
-            status, 
-            items, 
-            setItems, 
-            setFilteredItems, 
-            toast, 
-            setShowDeleteConfirm, 
+        updatestatus(clickedItem,
+            status,
+            items,
+            setItems,
+            setFilteredItems,
+            toast,
+            setShowDeleteConfirm,
             setClickedItem,
             setItemToDelete,
             setstatus)
-          
+
     }
 
     return (
@@ -141,22 +141,15 @@ const DisplayTodo: FC = () => {
                         </Link>
                     </div>
 
-                   
-                    <div className="text-center mt-3">
-                        <button
-                            className="btn btn-info"
-                            onClick={() => setShowModal(true)} 
-                        >
-                            Filter Items
-                        </button>
-                    </div>
-                    
+
+
+
                     <div className="applied-filters mt-3">
                         <p>{getAppliedFilters()}</p>
                     </div>
                 </div>
 
-                
+
                 <FilterModal
                     showModal={showModal}
                     setShowModal={setShowModal}

@@ -29,7 +29,7 @@
     border: 1px solid #69247C;
     border-radius: 5px;
     background-color: #69247C;
-    width: 18%;
+    width: 20%;
     height: 100%;
     display: flex;
     justify-content: center;
@@ -134,12 +134,6 @@ i {
     margin: auto;
 }
 
-.modal-content {
-    background-color: white;
-    border-radius: 5px;
-    padding: 20px;
-    transition: transform 0.3s ease;
-}
 
 .modal-header {
     border-bottom: 1px solid #ccc;
@@ -189,7 +183,7 @@ i {
 
 .todoPage
 {
-  overflow: hidden;
+  
     height: 100vh;
     
 }
@@ -197,7 +191,7 @@ i {
 .displayTodo
 {
     width: 80%;
-    height:92vh;
+    height:auto;
     border-radius: 10px;
     border: 1px solid #A888B5;
     margin: 3% auto;
@@ -263,6 +257,7 @@ input[type="radio"]
 .status-title-filter
 {
     font-weight: 400;
+    margin-bottom: 0%;
 }
 
 .labelatModal
@@ -288,3 +283,33 @@ input[type="radio"]
     margin: 3% auto;
 }
 
+.filter-buttons
+{
+    display: flex;
+    justify-content: flex-start;
+    gap: 10px;
+}
+
+.filter-box
+{
+    display: flex;
+    gap:3%;
+    margin-left: 3%;
+}
+
+.filter-box-2
+{
+    display: flex;
+    justify-content: center;
+    gap: 3%;
+}
+
+.filter-container
+{
+    margin: auto;
+}
+
+.select-filter
+{
+    border:1px solid #fff ;
+}

@@ -1,0 +1,32 @@
+
+.pagination {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin-top: 20px;
+    justify-content: center;
+    background-color:cadetblue;
+    margin: 2% 30%;
+    padding: 1%;
+    border-radius: 10px;
+  }
+  
+  .pagination li {
+    margin: 0 5px;
+  }
+  
+  .pagination .active {
+    font-weight: bold;
+  }
+  
+  .pagination button {
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+  
+  .nofound {
+    text-align: center;
+    color: red;
+  }
+  
+  

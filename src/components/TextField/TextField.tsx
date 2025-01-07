@@ -4,7 +4,7 @@ import InputBox from "../InputBox/InputBox";
 import "./TextField.css";
 import DescLabel from "../DescLabel/DescLabel";
 import TextAreaBox from "../TextAreaBox/TextAreaBox";
-import Button from "../Button/Button";
+import Button from "../../ui/Button/Button";
 import RadioGp from "../RadioGp/RadioGp";
 import Priority from "../PriorityLabel/Priority";
 import DateField from "../Date/DateField";
