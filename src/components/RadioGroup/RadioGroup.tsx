@@ -1,5 +1,5 @@
 import { FC, useState } from "react";
-import RadioButton from "../RadioButton/RadioButton";
+import RadioButton from "../../ui/RadioButton/RadioButton";
 
 interface RadioGpProps {
   onPriorityChange: (priority: string) => void; // Callback to pass the selected priority back to the parent

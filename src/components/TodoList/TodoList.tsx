@@ -1,12 +1,13 @@
 import { FC, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import "./DisplayTodo.css";
+import "./TodoList.css";
 import { ToastContainer, toast } from 'react-toastify';
-import FilterModal from "../FilterModal/FilterModal";
+import FilterModal from "../FilterTodoList/FilterTodoList";
 import ChangeModal from "../ChangeModal/ChangeModal";
-import PrintingPart from "../PrintingPart/PrintingPart";
+import PrintingPart from "../TodoItem/TodoItem";
 
 import { applyFilters, getAllItemsFromLocalStorage, sortItems, getPriorityClass, getStatusClass, updatestatus } from "../../utils/utils";
+import Button from "../../ui/Button/Button";
 
 const DisplayTodo: FC = () => {
     const [items, setItems] = useState<{ [key: string]: any }>({});
@@ -137,7 +138,7 @@ const DisplayTodo: FC = () => {
                 <div className="button2">
                     <div className="anchor">
                         <Link to="/additem" className="link mt-3">
-                            <button className="btn btn-light">Add New Item</button>
+                            <Button name="Add new item" color="light" text="dark"/>
                         </Link>
                     </div>
 

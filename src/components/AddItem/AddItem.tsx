@@ -1,15 +1,12 @@
-import { FC, useState } from "react";
-import TodoTitleLabel from "../TodoTitleLabel/TodoTitleLabel";
-import InputBox from "../InputBox/InputBox";
-import "./TextField.css";
-import DescLabel from "../DescLabel/DescLabel";
-import TextAreaBox from "../TextAreaBox/TextAreaBox";
+import { FC, useState,useEffect } from "react";
+import InputBox from "../../ui/InputBox/InputBox";
+import "./AddItem.css";
+import TextAreaBox from "../../ui/TextAreaBox/TextAreaBox";
 import Button from "../../ui/Button/Button";
-import RadioGp from "../RadioGp/RadioGp";
-import Priority from "../PriorityLabel/Priority";
-import DateField from "../Date/DateField";
-import TimeField from "../Time/TimeField";
-import ToTime from "../ToTime/ToTime";
+import RadioGp from "../RadioGroup/RadioGroup";
+import DateField from "../../ui/DateField/DateField";
+import TimeField from "../../ui/Time/TimeField";
+import { Label } from "../../ui/Label/Label";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 const TextField: FC = () => {
@@ -25,7 +22,11 @@ const TextField: FC = () => {
   };
 
   const [formData, setFormData] = useState(initialFormData);
-
+  const [minDate, setMinDate] = useState('');
+  useEffect(() => {
+    const today = new Date().toISOString().split('T')[0];
+    setMinDate(today);
+  }, []);
  const navigate = useNavigate();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -43,13 +44,15 @@ const TextField: FC = () => {
     });
   };
 
-  const handletoTimeChange = (totime: string) => {
+  const handletoTimeChange = (e:React.ChangeEvent<HTMLInputElement>) => {
+    const totime= e.target.value;
     setFormData({
       ...formData,
       totime, 
     });
   };
-  const handlefromTimeChange = (fromtime: string) => {
+  const handlefromTimeChange = (e:React.ChangeEvent<HTMLInputElement>) => {
+    const fromtime = e.target.value;
     setFormData({
       ...formData,
       fromtime,  
@@ -75,6 +78,8 @@ const TextField: FC = () => {
     console.log('Form submitted:', formData);
     setFormData(initialFormData);
   };
+  
+  
 
   const handleClear = () => {
     setFormData({
@@ -102,7 +107,7 @@ const TextField: FC = () => {
         <form id="myForm" onSubmit={handleSubmit}>
           <div className="Title">
             <div className="TodotitleLabel">
-              <TodoTitleLabel />
+            <Label htmlFor="TodoTitle" content="Task Title"/>
             </div>
             <div className="TodoTitleInputBox">
               <InputBox
@@ -115,40 +120,47 @@ const TextField: FC = () => {
           </div>
           <div className="Desc">
             <div className="DescLabel">
-              <DescLabel />
+            <Label htmlFor="Description" content="Description"/>
             </div>
             <div className="DescTextArea">
               <TextAreaBox
                 name="description"
                 value={formData.description}
                 onChange={handleChange}
+                placeholder="Enter Description ..."
+                rows={3}
               />
             </div>
           </div>
           <div className="Details">
             <div className="Radio box">
-              <Priority />
+            <Label className="mb-1" content="Priority"/>
               <RadioGp onPriorityChange={handlePriorityChange} />
             </div>
             <div className="date box">
+            <Label className="mb-1" content="Select Date"/>
+            <br/>
               <DateField
+                min={minDate}
                 name="date"
                 value={formData.date}
                 onChange={handleChange}
+                className="form-control"
               />
             </div>
             <div className="time box">
-              <TimeField
+              <TimeField classname="from"
                 name="from time"
+                content="From Time"
                 value={formData.fromtime}  // Pass the time value to TimeField
                 onTimeChange={handlefromTimeChange}  // Pass handleTimeChange to update the parent
               />
-              <ToTime name="to time"
+              <TimeField content="To Time" classname="to" name="to time"
                 value={formData.totime}  // Pass the time value to TimeField
                 onTimeChange={handletoTimeChange} />
             </div>
             <div className="tag ">
-              <label htmlFor="tagTodo">Add Tag</label>
+              <Label htmlFor="tagTodo" content="Add Tag"/>
               <br />
               <InputBox
                 name="tag"
@@ -177,7 +189,7 @@ const TextField: FC = () => {
               onclick={handleClear}
             />
             <div>
-        <Link to="/" className="link"><button className="btn btn-success">Check your Todo List</button></Link>
+        <Link to="/" className="link"><Button name="Check your Todo list" color="success"  /></Link>
       </div>
           </div>
         </form>

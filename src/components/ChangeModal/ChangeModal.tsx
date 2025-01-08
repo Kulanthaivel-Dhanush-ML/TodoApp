@@ -1,5 +1,6 @@
 import { FC } from "react";
-
+import Button from "../../ui/Button/Button";
+import { Label } from "../../ui/Label/Label";
 interface ChangeModalProps
 {
     showDeleteConfirm: boolean;
@@ -29,30 +30,24 @@ const ChangeModal:FC<ChangeModalProps> = ({
                             <div className="form-check">
 
                                 <input className="form-check-input" value="completed" type="radio" name="status" id="compbutton" onChange={handleUpdateStatus} />
-                                <label className="form-check-label labelatModal" htmlFor="compbutton">
-                                    Completed
-                                </label>
+                                <Label className="form-check-label labelatModal" htmlFor="compbutton"
+                                   content="Completed" 
+                                />
                             </div>
                             <div className="form-check">
                                 <input className="form-check-input" type="radio" value="not completed" name="status" id="notcompbutton" onChange={handleUpdateStatus} />
-                                <label className="form-check-label labelatModal" htmlFor="notcompbutton">
-                                    Not Completed
-                                </label>
+                                <Label className="form-check-label labelatModal" htmlFor="notcompbutton"
+                                    content="Not Completed"
+                                />
                             </div>
 
                         </div>
-                        <button className="btn btn-success upbutton" onClick={updatestatus}>
-                            Update
-                        </button>
+                        <Button color="success" name="Update" classname="upbutton" onclick={updatestatus}/>
                         <p className="Delete-title">Delete :</p>
                         <p className="para-modal">Do you want to delete this task?</p>
                         <div className="mod-button">
-                            <button className="btn btn-secondary" onClick={handleCancelDelete}>
-                                Close
-                            </button>
-                            <button className="btn btn-danger" onClick={handleDelete}>
-                                Delete
-                            </button>
+                            <Button name="Cancel" onclick={handleCancelDelete} color="secondary"/>
+                            <Button name="Delete" onclick={handleDelete} color="danger"/>
                         </div>
                     </div>
                 </div>

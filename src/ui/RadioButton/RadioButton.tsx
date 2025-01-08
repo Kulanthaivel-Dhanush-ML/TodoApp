@@ -1,6 +1,6 @@
 import { FC } from "react";
-import "../RadioGp/RadioGp.css";
 import "./RadioButton.css";
+import { Label } from "../Label/Label";
 interface RadioButtonProps {
   name: string;
   id: string;
@@ -23,12 +23,11 @@ const RadioButton: FC<RadioButtonProps> = ({ name, id, value, checked, onChange 
         onChange={() => onChange(value)} 
         style={{ display: 'none' }} 
       />
-      <label
-        htmlFor={id} // links the label to the radio button using its id
+      <Label
+        htmlFor={id} 
         className={`radio-btn ${checked ? value.toLowerCase() : "default"}`}
-      >
-        {value}
-      </label>
+        content={value}
+      />
     </>
   );
 };

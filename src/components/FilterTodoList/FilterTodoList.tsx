@@ -1,6 +1,7 @@
 import { FC } from "react";
 import Select from 'react-select';
-
+import Button from "../../ui/Button/Button";
+import DateField from "../../ui/DateField/DateField";
 
 interface TodoModalProps {
   showModal: boolean;
@@ -47,8 +48,8 @@ const FilterModal: FC<TodoModalProps> = ({
         </select>
 
         {/* Date Filter */}
-        <input
-          type="date"
+        <DateField
+        name=""
           value={dateFilter}
           onChange={handleDateChange}
           className="form-control-sm mb-3"
@@ -103,13 +104,8 @@ const FilterModal: FC<TodoModalProps> = ({
       {/* Apply and Reset Filters Buttons */}
       <div className="filter-box-2">
       <div className="filter-buttons">
-        <button className="btn btn-secondary" onClick={resetFilters}>
-          Reset Filters
-        </button>
-        <button className="btn btn-success" onClick={applyFilters}>
-          Apply Filters
-        </button>
-    
+        <Button name="Reset Filters" color="secondary" onclick={resetFilters} />
+        <Button name="Apply Filters" color="success" onclick={applyFilters} />
       </div>
       </div>
     </div>

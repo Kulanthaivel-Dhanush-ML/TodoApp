@@ -1,6 +1,6 @@
 import { FC, useState } from "react";
 import ReactPaginate from "react-paginate";
-import "./PrintingPart.css"
+import "./TodoItem.css"
 interface TodoItem {
   name: string;
   priority: string;

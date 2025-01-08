@@ -1,9 +1,9 @@
 import { FC } from "react";
-import TextField from "./components/TextField/TextField.tsx";
+import TextField from "./components/AddItem/AddItem.tsx";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "./App.css";
 import { BrowserRouter,Routes,Route } from "react-router-dom";
-import DisplayTodo from "./components/Display/DisplayTodo.tsx";
+import DisplayTodo from "./components/TodoList/TodoList.tsx";
 const App:FC = () =>
 {
   return (
