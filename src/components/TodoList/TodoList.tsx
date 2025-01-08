@@ -1,10 +1,10 @@
-import { FC, useState, useEffect } from "react";
+import React, { FC, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./TodoList.css";
 import { ToastContainer, toast } from 'react-toastify';
-import FilterModal from "../FilterTodoList/FilterTodoList";
+import FilterTodoList from "../FilterTodoList/FilterTodoList";
 import ChangeModal from "../ChangeModal/ChangeModal";
-import PrintingPart from "../TodoItem/TodoItem";
+import TodoItem from "../TodoItem/TodoItem";
 
 import { applyFilters, getAllItemsFromLocalStorage, sortItems, getPriorityClass, getStatusClass, updatestatus } from "../../utils/utils";
 import Button from "../../ui/Button/Button";
@@ -106,14 +106,14 @@ const DisplayTodo: FC = () => {
         ) : "";
     };
 
-    const handleUpdateStatus = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleUpdateStatus = (e:React.ChangeEvent<HTMLInputElement>) => {
         setstatus(e.target.value);
     }
 
-    const handleStatusFilter = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setstatusFilter(e.target.value);
-
-    }
+    const handleStatusFilter = (status: string) => {
+        setstatusFilter(status);  // Set the status filter to the selected value
+    };
+    
 
     const handleStatusUpdate = () => {
         updatestatus(clickedItem,
@@ -151,7 +151,7 @@ const DisplayTodo: FC = () => {
                 </div>
 
 
-                <FilterModal
+                <FilterTodoList
                     showModal={showModal}
                     setShowModal={setShowModal}
                     applyFilters={handleapplyFilters}
@@ -159,14 +159,13 @@ const DisplayTodo: FC = () => {
                     tagFilter={tagFilter}
                     handleTagChange={handleTagChange}
                     availableTags={availableTags}
-                    statusFilter={statusFilter}
                     handleStatusFilter={handleStatusFilter}
                     handlePriorityChange={handlePriorityChange}
                     dateFilter={dateFilter}
                     handleDateChange={handleDateChange}
                     priorityFilter={priorityFilter}
                 />
-                <PrintingPart
+                <TodoItem
                     filteredItems={filteredItems}
                     clickedItem={clickedItem}
                     handleItemClick={handleItemClick}

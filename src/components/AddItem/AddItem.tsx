@@ -3,7 +3,7 @@ import InputBox from "../../ui/InputBox/InputBox";
 import "./AddItem.css";
 import TextAreaBox from "../../ui/TextAreaBox/TextAreaBox";
 import Button from "../../ui/Button/Button";
-import RadioGp from "../RadioGroup/RadioGroup";
+import RadioGp from "../../ui/RadioGroup/RadioGroup";
 import DateField from "../../ui/DateField/DateField";
 import TimeField from "../../ui/Time/TimeField";
 import { Label } from "../../ui/Label/Label";
@@ -18,7 +18,7 @@ const TextField: FC = () => {
     fromtime: '',
     totime: '',
     tag: '',
-    status:'not completed',
+    status:'not-completed',
   };
 
   const [formData, setFormData] = useState(initialFormData);
@@ -90,7 +90,7 @@ const TextField: FC = () => {
       fromtime: '',
       totime: '',
       tag: '',
-      status:'not completed'
+      status:'not-completed'
     });
   };
 
@@ -135,7 +135,7 @@ const TextField: FC = () => {
           <div className="Details">
             <div className="Radio box">
             <Label className="mb-1" content="Priority"/>
-              <RadioGp onPriorityChange={handlePriorityChange} />
+            <RadioGp classname="radiogrp" options={["Low", "Medium", "High"]} onChange={handlePriorityChange} name="priorityradio"  />
             </div>
             <div className="date box">
             <Label className="mb-1" content="Select Date"/>

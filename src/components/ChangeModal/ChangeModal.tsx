@@ -25,6 +25,7 @@ const ChangeModal:FC<ChangeModalProps> = ({
                 <div className="modal-dialog">
                     <div className="modal-content">
                         <p className="status-title">Status :</p>
+                        {/* <RadioGp classname="updatestatus" name="status" options={["completed","not-completed"]} onChange={handleUpdateStatus} keyword="status"/> */}
                         <div className="updatestatus">
 
                             <div className="form-check">

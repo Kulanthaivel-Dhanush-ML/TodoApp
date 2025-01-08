@@ -1,16 +1,19 @@
 import { FC } from "react";
 import "./RadioButton.css";
 import { Label } from "../Label/Label";
+
 interface RadioButtonProps {
   name: string;
   id: string;
   value: string;
   checked: boolean;
-  onChange: (value: string) => void; 
+  keyword?: string;  // Optional keyword prop
+  onChange: (value: string) => void;
 }
 
-const RadioButton: FC<RadioButtonProps> = ({ name, id, value, checked, onChange }) => {
-  
+const RadioButton: FC<RadioButtonProps> = ({ name, id, value, checked, onChange, keyword }) => {
+  const className = `radio-btn ${checked ? `${value.toLowerCase()}${keyword ? `-${keyword.toLowerCase()}` : ''}` : 'default'}`;
+
   return (
     <>
       <input
@@ -20,12 +23,12 @@ const RadioButton: FC<RadioButtonProps> = ({ name, id, value, checked, onChange 
         id={id}
         value={value}
         checked={checked}
-        onChange={() => onChange(value)} 
-        style={{ display: 'none' }} 
+        onChange={() => onChange(value)}
+        style={{ display: 'none' }} // Hiding default radio button, but using custom label
       />
       <Label
-        htmlFor={id} 
-        className={`radio-btn ${checked ? value.toLowerCase() : "default"}`}
+        htmlFor={id}
+        className={className}  // Dynamically assigned class name
         content={value}
       />
     </>

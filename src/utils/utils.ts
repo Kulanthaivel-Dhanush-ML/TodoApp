@@ -32,10 +32,10 @@ export const sortItems = (allItems: { [key: string]: any }) => {
     type Priority = "High" | "Medium" | "Low";
     return Object.fromEntries(
         Object.entries(allItems).sort(([, itemA], [, itemB]) => {
-            if (itemA.status === "not completed" && itemB.status !== "not completed") {
+            if (itemA.status === "not-completed" && itemB.status !== "not-completed") {
                 return -1;
             }
-            if (itemA.status !== "not completed" && itemB.status === "not completed") {
+            if (itemA.status !== "not-completed" && itemB.status === "not-completed") {
                 return 1;
             }
 
@@ -113,10 +113,10 @@ export const getPriorityClass = (priority: string): string => {
 
 export const getStatusClass = (status: string) => {
     switch (status) {
-        case "not completed":
-            return "not-completed";
+        case "not-completed":
+            return "d-not-completed";
         case "completed":
-            return "completed";
+            return "d-completed";
         default:
             return "";
     }
@@ -153,7 +153,7 @@ export const updatestatus = (clickedItem: string | null,
                 setShowDeleteConfirm(false);
                 setClickedItem(null);
                 setItemToDelete(null);
-                setstatus("not completed");
+                setstatus("not-completed");
 
                 toast.success("Status updated successfully", { theme: "colored" });
 

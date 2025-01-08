@@ -1,0 +1,24 @@
+.statusfilter
+{
+    display: inline;
+    gap: 0%;
+
+}
+
+.completed
+{
+    background-color: #A888B5;
+    padding: 10px 15px;
+    font-weight: 500;
+    font-size:large;
+    border-radius: 15px;
+}
+
+.not-completed
+{
+    background-color: #A888B5;
+    padding: 10px 15px;
+    font-weight: 500;
+    font-size:large;
+    border-radius: 15px;
+}

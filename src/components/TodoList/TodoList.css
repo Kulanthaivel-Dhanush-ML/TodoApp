@@ -209,7 +209,7 @@ i {
     color: #69247C;
 }
 
-.not-completed
+.d-not-completed
 {
     background-color: #555;
     font-weight: 400;
@@ -218,7 +218,7 @@ i {
     border-radius: 10px;
 }
 
-.completed
+.d-completed
 {
     background-color: green;
     font-weight: 400;

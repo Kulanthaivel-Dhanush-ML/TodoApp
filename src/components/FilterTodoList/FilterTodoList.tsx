@@ -2,7 +2,8 @@ import { FC } from "react";
 import Select from 'react-select';
 import Button from "../../ui/Button/Button";
 import DateField from "../../ui/DateField/DateField";
-
+import RadioGp from "../../ui/RadioGroup/RadioGroup";
+import "./FilterTodoList.css";
 interface TodoModalProps {
   showModal: boolean;
   setShowModal: (show: boolean) => void;
@@ -11,21 +12,19 @@ interface TodoModalProps {
   tagFilter: any[];
   handleTagChange: (selectedOptions: any) => void;
   availableTags: any[];
-  statusFilter: string;
-  handleStatusFilter: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleStatusFilter: (status:string) => void;
   handlePriorityChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
   dateFilter: string;
   handleDateChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   priorityFilter: string;
 }
 
-const FilterModal: FC<TodoModalProps> = ({
+const FilterTodoList: FC<TodoModalProps> = ({
   applyFilters,
   resetFilters,
   tagFilter,
   handleTagChange,
   availableTags,
-  statusFilter,
   handleStatusFilter,
   handlePriorityChange,
   dateFilter,
@@ -66,38 +65,9 @@ const FilterModal: FC<TodoModalProps> = ({
           placeholder="Select Tags"
         />
         
+        <RadioGp classname="statusfilter" options={["completed","not-completed"]} name="status" onChange={handleStatusFilter} />
         
         
-        <div className="statusfilter">
-          <div className="form-check">
-            <input
-              className="form-check-input"
-              value="completed"
-              type="radio"
-              name="status"
-              id="compbutton"
-              checked={statusFilter === "completed"}
-              onChange={handleStatusFilter}
-            />
-            <label className="form-check-label labelatModal" htmlFor="compbutton">
-              Completed
-            </label>
-          </div>
-          <div className="form-check">
-            <input
-              className="form-check-input"
-              type="radio"
-              value="not completed"
-              name="status"
-              id="notcompbutton"
-              checked={statusFilter === "not completed"}
-              onChange={handleStatusFilter}
-            />
-            <label className="form-check-label labelatModal" htmlFor="notcompbutton">
-              NotCompleted
-            </label>
-          </div>
-        </div>
       </div>
       </div>
 
@@ -112,4 +82,4 @@ const FilterModal: FC<TodoModalProps> = ({
   );
 };
 
-export default FilterModal;
+export default FilterTodoList;

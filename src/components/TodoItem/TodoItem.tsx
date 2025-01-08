@@ -12,7 +12,7 @@ interface TodoItem {
   totime: string;
 }
 
-interface PrintingPartProps {
+interface TodoItemProps {
   filteredItems: { [key: string]: TodoItem };
   clickedItem: string | null;
   handleItemClick: (key: string) => void;
@@ -20,7 +20,7 @@ interface PrintingPartProps {
   getStatusClass: (Status: string) => string;
 }
 
-const PrintingPart: FC<PrintingPartProps> = ({
+const TodoItem: FC<TodoItemProps> = ({
   filteredItems,
   clickedItem,
   handleItemClick,
@@ -121,4 +121,4 @@ const PrintingPart: FC<PrintingPartProps> = ({
   );
 };
 
-export default PrintingPart;
+export default TodoItem;
