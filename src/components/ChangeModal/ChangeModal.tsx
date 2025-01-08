@@ -36,7 +36,7 @@ const ChangeModal:FC<ChangeModalProps> = ({
                                 />
                             </div>
                             <div className="form-check">
-                                <input className="form-check-input" type="radio" value="not completed" name="status" id="notcompbutton" onChange={handleUpdateStatus} />
+                                <input className="form-check-input" type="radio" value="not-completed" name="status" id="notcompbutton" onChange={handleUpdateStatus} />
                                 <Label className="form-check-label labelatModal" htmlFor="notcompbutton"
                                     content="Not Completed"
                                 />
