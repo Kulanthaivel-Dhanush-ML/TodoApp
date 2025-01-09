@@ -8,11 +8,11 @@ interface InputBoxProps {
 }
 const InputBox: FC<InputBoxProps> = ({ name, value, onChange,placeholder }) => {
     return (
-        <>
+        
             <input type="text" name={name}
                 value={value}
                 onChange={onChange} placeholder={placeholder} required></input>
-        </>
+        
     )
 }
 

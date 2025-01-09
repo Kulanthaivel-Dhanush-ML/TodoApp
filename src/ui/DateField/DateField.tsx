@@ -12,8 +12,8 @@ const DateField:FC<DateFieldProps> = ({name,value,onChange,className,placeholder
   
   
   return (
-    <>
-      <input name={name}  className={className} value={value} onChange={onChange} type="date" placeholder={placeholder}   min={min} required></input></>
+    
+      <input name={name}  className={className} value={value} onChange={onChange} type="date" placeholder={placeholder}   min={min} required></input>
   )
 }
 export default DateField;

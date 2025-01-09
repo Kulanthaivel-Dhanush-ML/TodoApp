@@ -2,35 +2,34 @@ import { FC } from "react";
 import { Label } from "../Label/Label";
 
 interface FromTimeProps {
-  classname?:string;
+  classname?: string;
   name: string;
-  value: string;  // The value of the time field, passed from the parent
+  value: string;
   content: string;
-  onTimeChange: (time: React.ChangeEvent<HTMLInputElement>) => void;  // Callback to update the parent state
+  required?: boolean; 
+  onTimeChange: (time: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-const TimeField: FC<FromTimeProps> = ({ name, value, onTimeChange,classname,content }) => {
-  
-  
-
+const TimeField: FC<FromTimeProps> = ({
+  name,
+  value,
+  onTimeChange,
+  classname,
+  content,
+  required,
+}) => {
   return (
-    <>
-      <div className={classname}>
-        <Label htmlFor="htmlFor" className="form-label"
-          content={content}
-        />
-        <input
-          name={name}
-          type="time"
-          className="form-control"
-          value={value}  // Use the value prop passed from the parent
-          onChange={onTimeChange}
-          required
-        />
-      </div>
-
-     
-    </>
+    <div className={classname}>
+      <Label htmlFor={name} className="form-label" content={content} /> 
+      <input
+        name={name}
+        type="time"
+        className="form-control"
+        value={value}
+        onChange={onTimeChange}
+        required={required} 
+      />
+    </div>
   );
 };
 

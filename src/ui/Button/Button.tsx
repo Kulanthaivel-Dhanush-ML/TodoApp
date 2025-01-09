@@ -12,7 +12,7 @@ interface MyComponentProps {
 const Button:FC<MyComponentProps> = ({name,color,border="none",text="white",type="button",classname,onclick}) =>
 {
     return(
-        <>
+        
         <div className="d-grid gap-2">
             <button
                 type={type}
@@ -22,7 +22,6 @@ const Button:FC<MyComponentProps> = ({name,color,border="none",text="white",type
             </button>
         </div>
         
-        </>
     )
 }
 

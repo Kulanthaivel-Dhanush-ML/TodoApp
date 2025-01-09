@@ -152,12 +152,13 @@ const TextField: FC = () => {
               <TimeField classname="from"
                 name="from time"
                 content="From Time"
-                value={formData.fromtime}  // Pass the time value to TimeField
-                onTimeChange={handlefromTimeChange}  // Pass handleTimeChange to update the parent
+                value={formData.fromtime}  
+                onTimeChange={handlefromTimeChange}  
+                required={true}
               />
               <TimeField content="To Time" classname="to" name="to time"
-                value={formData.totime}  // Pass the time value to TimeField
-                onTimeChange={handletoTimeChange} />
+                value={formData.totime}  
+                onTimeChange={handletoTimeChange} required={true}/>
             </div>
             <div className="tag ">
               <Label htmlFor="tagTodo" content="Add Tag"/>

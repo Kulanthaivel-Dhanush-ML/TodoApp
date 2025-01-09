@@ -10,7 +10,7 @@ interface TextAreaBoxProps {
 }
 const TextAreaBox: FC<TextAreaBoxProps> = ({ name, classname,value, onChange, placeholder,rows }) => {
     return (
-        <>
+       
 
 
             <textarea className= {`form-control ${classname}`} name={name}
@@ -18,7 +18,6 @@ const TextAreaBox: FC<TextAreaBoxProps> = ({ name, classname,value, onChange, pl
                 onChange={onChange} rows={rows} placeholder={placeholder}></textarea>
 
 
-        </>
     )
 }
 
