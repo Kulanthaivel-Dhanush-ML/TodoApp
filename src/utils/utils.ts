@@ -128,7 +128,7 @@ export const updatestatus = (clickedItem: string | null,
     setItems: React.Dispatch<React.SetStateAction<{ [key: string]: any }>>,
     setFilteredItems: React.Dispatch<React.SetStateAction<{ [key: string]: any }>>,
     toast: any,
-    setShowDeleteConfirm: React.Dispatch<React.SetStateAction<boolean>>,
+    setShowUpdateConfirm: React.Dispatch<React.SetStateAction<boolean>>,
     setClickedItem: React.Dispatch<React.SetStateAction<string | null>>,
     setItemToDelete: React.Dispatch<React.SetStateAction<string | null>>,
     setstatus: React.Dispatch<React.SetStateAction<string>>) => {
@@ -150,7 +150,7 @@ export const updatestatus = (clickedItem: string | null,
                 setItems(updatedItems);
                 setFilteredItems(updatedItems);
 
-                setShowDeleteConfirm(false);
+                setShowUpdateConfirm(false);
                 setClickedItem(null);
                 setItemToDelete(null);
                 setstatus("not-completed");

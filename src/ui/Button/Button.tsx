@@ -7,8 +7,8 @@ interface MyComponentProps {
     text?:string;
     type?:'submit' | 'button';
     classname?:string;
-   onclick?:(e:React.FormEvent)=> void;
-  }
+   onclick?:(e:React.FormEvent)=> void | (()=>void);
+  } 
 const Button:FC<MyComponentProps> = ({name,color,border="none",text="white",type="button",classname,onclick}) =>
 {
     return(

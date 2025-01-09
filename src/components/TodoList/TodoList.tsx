@@ -3,11 +3,12 @@ import { Link } from "react-router-dom";
 import "./TodoList.css";
 import { ToastContainer, toast } from 'react-toastify';
 import FilterTodoList from "../FilterTodoList/FilterTodoList";
-import ChangeModal from "../ChangeModal/ChangeModal";
+
 import TodoItem from "../TodoItem/TodoItem";
 
-import { applyFilters, getAllItemsFromLocalStorage, sortItems, getPriorityClass, getStatusClass, updatestatus } from "../../utils/utils";
+import { applyFilters, getAllItemsFromLocalStorage, sortItems, getPriorityClass, getStatusClass  } from "../../utils/utils";
 import Button from "../../ui/Button/Button";
+import DeleteModal from "../DeleteModal/DeleteModal";
 
 const DisplayTodo: FC = () => {
     const [items, setItems] = useState<{ [key: string]: any }>({});
@@ -18,9 +19,9 @@ const DisplayTodo: FC = () => {
     const [showModal, setShowModal] = useState<boolean>(false);
     const [itemToDelete, setItemToDelete] = useState<string | null>(null);
     const [showDeleteConfirm, setShowDeleteConfirm] = useState<boolean>(false);
+    
     const [clickedItem, setClickedItem] = useState<string | null>(null);
     const [availableTags, setAvailableTags] = useState<any[]>([]);
-    const [status, setstatus] = useState<string>("All");
     const [statusFilter, setstatusFilter] = useState<string>("All");
 
     useEffect(() => {
@@ -65,11 +66,17 @@ const DisplayTodo: FC = () => {
         setFilteredItems(items);
     };
 
-    const handleItemClick = (key: string) => {
+    const handleItemClick = (key: string ) => {
         setClickedItem(key);
         setItemToDelete(key);
         setShowDeleteConfirm(true);
     };
+
+    const handleUpdateClick =(key:string | null)=>
+    {
+        setClickedItem(key);
+        
+    }
 
     const handleDelete = () => {
         if (itemToDelete) {
@@ -89,6 +96,7 @@ const DisplayTodo: FC = () => {
 
     const handleCancelDelete = () => {
         setShowDeleteConfirm(false);
+       
         setItemToDelete(null);
         setClickedItem(null);
     };
@@ -106,28 +114,14 @@ const DisplayTodo: FC = () => {
         ) : "";
     };
 
-    const handleUpdateStatus = (e:React.ChangeEvent<HTMLInputElement>) => {
-        setstatus(e.target.value);
-    }
+   
 
     const handleStatusFilter = (status: string) => {
         setstatusFilter(status);  // Set the status filter to the selected value
     };
     
 
-    const handleStatusUpdate = () => {
-        updatestatus(clickedItem,
-            status,
-            items,
-            setItems,
-            setFilteredItems,
-            toast,
-            setShowDeleteConfirm,
-            setClickedItem,
-            setItemToDelete,
-            setstatus)
-
-    }
+   
 
     return (
         <div className="todoPage">
@@ -171,14 +165,11 @@ const DisplayTodo: FC = () => {
                     handleItemClick={handleItemClick}
                     getPriorityClass={getPriorityClass}
                     getStatusClass={getStatusClass}
+                    handleUpdateClick={handleUpdateClick}
                 />
-                <ChangeModal
-                    showDeleteConfirm={showDeleteConfirm}
-                    handleDelete={handleDelete}
-                    handleCancelDelete={handleCancelDelete}
-                    handleUpdateStatus={handleUpdateStatus}
-                    updatestatus={handleStatusUpdate}
-                />
+                
+                <DeleteModal  handleDelete={handleDelete}
+                    handleCancelDelete={handleCancelDelete} showDeleteConfirm={showDeleteConfirm} />
 
             </div>
 

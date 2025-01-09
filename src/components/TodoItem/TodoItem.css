@@ -29,4 +29,10 @@
     color: red;
   }
   
+  .Button-gp-up
+  {
+    display: flex;
+    justify-content: flex-start;
+    gap: 3%;
+  }
   

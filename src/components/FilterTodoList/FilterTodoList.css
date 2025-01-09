@@ -11,7 +11,7 @@
     padding: 10px 15px;
     font-weight: 500;
     font-size:large;
-    border-radius: 15px;
+    
 }
 
 .not-completed
@@ -20,5 +20,5 @@
     padding: 10px 15px;
     font-weight: 500;
     font-size:large;
-    border-radius: 15px;
+   
 }

@@ -102,6 +102,11 @@
     text-decoration: none;
 }
 
+.radiogrp
+{
+    border-radius: 15px;
+}
+
 
 @media (max-width: 768px) {
     .box {
