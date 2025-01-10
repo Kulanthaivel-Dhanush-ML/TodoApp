@@ -3,7 +3,8 @@ import ReactPaginate from "react-paginate";
 import "./TodoItem.css";
 import Button from "../../ui/Button/Button";
 
-import {toast,ToastContainer } from "react-toastify";
+import {toast } from "react-toastify";
+
 interface TodoItem {
   name: string;
   priority: string;
@@ -33,32 +34,31 @@ const TodoItem: FC<TodoItemProps> = ({
   getStatusClass,
 }) => {
   const [currentPage, setCurrentPage] = useState(0);
-  const [selectedStatus, setSelectedStatus] = useState<string>(""); // State to track selected status
+  const [selectedStatus, setSelectedStatus] = useState<string>(""); 
   const itemsPerPage = 10;
 
-  // Convert filteredItems object to an array for easier slicing
+
   const filteredItemsArray = Object.keys(filteredItems).map(
     (key) => filteredItems[key]
   );
 
-  // Calculate the items to display based on the current page
   const startIndex = currentPage * itemsPerPage;
   const currentItems = filteredItemsArray.slice(
     startIndex,
     startIndex + itemsPerPage
   );
 
-  // Handle page change
   const handlePageClick = (event: { selected: number }) => {
     setCurrentPage(event.selected);
   };
 
-  // Handle radio button status change
+ 
   const handleStatusChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSelectedStatus(event.target.value);
+
   };
 
-  // Handle save of updated status
+ 
   const handleSaveStatus = (item: TodoItem) => {
     if (selectedStatus!=="null") {
       item.status = selectedStatus; 
@@ -131,8 +131,10 @@ const TodoItem: FC<TodoItemProps> = ({
                 ) : (
                   // Default display of the todo item
                   <div className="firstpart">
-                    <p className="todoname">
-                      {item.name}
+                    <div className="firstline">
+                    <p className="todoname" title={item.name}>
+                      {item.name}</p>
+                      
                       <span className="extra-details">
                         <span
                           className={`todopriority ${getPriorityClass(item.priority)}`}
@@ -142,9 +144,9 @@ const TodoItem: FC<TodoItemProps> = ({
                         &nbsp;
                         <span
                           className={`todostatus ${getStatusClass(item.status)}`}
-                          onClick={() => handleUpdateClick(item.name)} // Change to editable status when clicked
-                          onMouseEnter={(e) => (e.currentTarget.innerText = "Change Status")} // Change text on hover
-                          onMouseLeave={(e) => (e.currentTarget.innerText = item.status)} // Revert text when hover ends
+                          onClick={() => handleUpdateClick(item.name)} 
+                          onMouseEnter={(e) => (e.currentTarget.innerText = "Change Status")} 
+                          onMouseLeave={(e) => (e.currentTarget.innerText = item.status)} 
                         >
                           {item.status}
                         </span>
@@ -161,7 +163,8 @@ const TodoItem: FC<TodoItemProps> = ({
                           ></i>
                         </span>
                       </span>
-                    </p>
+                      </div>
+                    
                     <p className="tododesc">{item.description}</p>
                   </div>
                 )}
@@ -182,7 +185,7 @@ const TodoItem: FC<TodoItemProps> = ({
           ))
         )}
       </div>
-      <ToastContainer/>
+      
     </>
   );
 };

@@ -1,4 +1,4 @@
-import { FC, useState,useEffect } from "react";
+import { FC, useState, useEffect } from "react";
 import InputBox from "../../ui/InputBox/InputBox";
 import "./AddItem.css";
 import TextAreaBox from "../../ui/TextAreaBox/TextAreaBox";
@@ -8,7 +8,8 @@ import DateField from "../../ui/DateField/DateField";
 import TimeField from "../../ui/Time/TimeField";
 import { Label } from "../../ui/Label/Label";
 import { Link, Outlet, useNavigate } from "react-router-dom";
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer, toast } from "react-toastify";
+
 const TextField: FC = () => {
   const initialFormData = {
     name: '',
@@ -18,16 +19,23 @@ const TextField: FC = () => {
     fromtime: '',
     totime: '',
     tag: '',
-    status:'not-completed',
+    status: 'not-completed',
   };
 
   const [formData, setFormData] = useState(initialFormData);
   const [minDate, setMinDate] = useState('');
+  const navigate = useNavigate();
+
   useEffect(() => {
     const today = new Date().toISOString().split('T')[0];
     setMinDate(today);
+    setFormData((prevData) => ({
+      ...prevData,
+      date: today,
+      fromtime: `${new Date().getHours()}:${String(new Date().getMinutes()).padStart(2, '0')}`, // Default current time
+      totime: `${new Date().getHours()}:${String(new Date().getMinutes()).padStart(2, '0')}`, // Default current time
+    }));
   }, []);
- const navigate = useNavigate();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -40,58 +48,38 @@ const TextField: FC = () => {
   const handlePriorityChange = (priority: string) => {
     setFormData({
       ...formData,
-      priority,  
+      priority,
     });
   };
 
-  const handletoTimeChange = (e:React.ChangeEvent<HTMLInputElement>) => {
-    const totime= e.target.value;
+  const handletoTimeChange = (totime: string) => {
     setFormData({
       ...formData,
-      totime, 
+      totime,
     });
   };
-  const handlefromTimeChange = (e:React.ChangeEvent<HTMLInputElement>) => {
-    const fromtime = e.target.value;
+
+  const handlefromTimeChange = (fromtime: string) => {
     setFormData({
       ...formData,
-      fromtime,  
+      fromtime,
     });
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!formData.name ||
-      !formData.description ||
-      !formData.priority ||
-      !formData.date ||
-      !formData.fromtime ||
-      !formData.totime ||
-      !formData.tag) {
-      toast.error("Please fill out all fields before submitting the form.",{theme:"colored"});
-      return; 
+    if (!formData.name || !formData.description || !formData.priority || !formData.tag) {
+      toast.error("Please fill out all fields before submitting the form.", { theme: "colored" });
+      return;
     }
-    toast.success("Success",{theme:"colored"})
-    localStorage.setItem(formData.name,JSON.stringify(formData));
-    // localStorage.setItem('successMessage',"New Todo Created");
+    toast.success("Success", { theme: "colored" });
+    localStorage.setItem(formData.name, JSON.stringify(formData));
     navigate('/');
-    console.log('Form submitted:', formData);
     setFormData(initialFormData);
   };
-  
-  
 
   const handleClear = () => {
-    setFormData({
-      name: '',
-      description: '',
-      priority: '',
-      date: '',
-      fromtime: '',
-      totime: '',
-      tag: '',
-      status:'not-completed'
-    });
+    setFormData(initialFormData);
   };
 
   return (
@@ -99,7 +87,7 @@ const TextField: FC = () => {
       <div className="Todo">
         <h4 style={{ fontFamily: "cursive" }}>TO-DO LIST</h4>
       </div>
-      
+
       <div className="NewItemAdd">
         <div className="NewItemTitle">
           <h5 style={{ textAlign: "center" }}>ADD NEW ITEM</h5>
@@ -107,7 +95,7 @@ const TextField: FC = () => {
         <form id="myForm" onSubmit={handleSubmit}>
           <div className="Title">
             <div className="TodotitleLabel">
-            <Label htmlFor="TodoTitle" content="Task Title"/>
+              <Label htmlFor="TodoTitle" content="Task Title" />
             </div>
             <div className="TodoTitleInputBox">
               <InputBox
@@ -120,7 +108,7 @@ const TextField: FC = () => {
           </div>
           <div className="Desc">
             <div className="DescLabel">
-            <Label htmlFor="Description" content="Description"/>
+              <Label htmlFor="Description" content="Description" />
             </div>
             <div className="DescTextArea">
               <TextAreaBox
@@ -134,12 +122,12 @@ const TextField: FC = () => {
           </div>
           <div className="Details">
             <div className="Radio box">
-            <Label className="mb-1" content="Priority"/>
-            <RadioGp classname="radiogrp" options={["Low", "Medium", "High"]} onChange={handlePriorityChange} name="priorityradio"  />
+              <Label className="mb-1" content="Priority" />
+              <RadioGp classname="radiogrp" options={["Low", "Medium", "High"]} onChange={handlePriorityChange} name="priorityradio" />
             </div>
             <div className="date box">
-            <Label className="mb-1" content="Select Date"/>
-            <br/>
+              <Label className="mb-1" content="Select Date" />
+              <br />
               <DateField
                 min={minDate}
                 name="date"
@@ -149,19 +137,25 @@ const TextField: FC = () => {
               />
             </div>
             <div className="time box">
-              <TimeField classname="from"
+              <TimeField
+                classname="from"
                 name="from time"
                 content="From Time"
-                value={formData.fromtime}  
-                onTimeChange={handlefromTimeChange}  
+                value={formData.fromtime}
+                onTimeChange={handlefromTimeChange}
                 required={true}
               />
-              <TimeField content="To Time" classname="to" name="to time"
-                value={formData.totime}  
-                onTimeChange={handletoTimeChange} required={true}/>
+              <TimeField
+                content="To Time"
+                classname="to"
+                name="to time"
+                value={formData.totime}
+                onTimeChange={handletoTimeChange}
+                required={true}
+              />
             </div>
-            <div className="tag ">
-              <Label htmlFor="tagTodo" content="Add Tag"/>
+            <div className="tag">
+              <Label htmlFor="tagTodo" content="Add Tag" />
               <br />
               <InputBox
                 name="tag"
@@ -190,12 +184,12 @@ const TextField: FC = () => {
               onclick={handleClear}
             />
             <div>
-        <Link to="/" className="link"><Button name="Check your Todo list" color="success"  /></Link>
-      </div>
+              <Link to="/" className="link"><Button name="Check your Todo list" color="success" /></Link>
+            </div>
           </div>
         </form>
       </div>
-      
+
       <Outlet />
       <ToastContainer />
     </>

@@ -19,7 +19,6 @@ const DisplayTodo: FC = () => {
     const [showModal, setShowModal] = useState<boolean>(false);
     const [itemToDelete, setItemToDelete] = useState<string | null>(null);
     const [showDeleteConfirm, setShowDeleteConfirm] = useState<boolean>(false);
-    
     const [clickedItem, setClickedItem] = useState<string | null>(null);
     const [availableTags, setAvailableTags] = useState<any[]>([]);
     const [statusFilter, setstatusFilter] = useState<string>("All");
@@ -47,6 +46,7 @@ const DisplayTodo: FC = () => {
     const handlePriorityChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
         setPriorityFilter(e.target.value);
         console.log("Selected Priority:", e.target.value);
+        applyFilters(items, priorityFilter, dateFilter, tagFilter, statusFilter);
     };
 
     const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -55,6 +55,7 @@ const DisplayTodo: FC = () => {
 
     const handleTagChange = (selectedOptions: any) => {
         setTagFilter(selectedOptions || []);
+        applyFilters;
     };
 
 
@@ -66,8 +67,7 @@ const DisplayTodo: FC = () => {
         setFilteredItems(items);
     };
 
-    const handleItemClick = (key: string ) => {
-        setClickedItem(key);
+    const handleItemClick = (key: string ) => {      
         setItemToDelete(key);
         setShowDeleteConfirm(true);
     };
@@ -118,6 +118,7 @@ const DisplayTodo: FC = () => {
 
     const handleStatusFilter = (status: string) => {
         setstatusFilter(status);  // Set the status filter to the selected value
+
     };
     
 

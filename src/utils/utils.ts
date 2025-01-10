@@ -68,7 +68,7 @@ export const applyFilters = (items: { [key: string]: any },
     tagFilter: any[],
     statusFilter: string) => {
     let filtered = { ...items };
-
+        console.log("Hello");
     if (priorityFilter !== "All") {
         filtered = Object.fromEntries(
             Object.entries(filtered).filter(([_, item]) => item.priority === priorityFilter)
@@ -122,50 +122,6 @@ export const getStatusClass = (status: string) => {
     }
 };
 
-export const updatestatus = (clickedItem: string | null,
-    status: string,
-    items: { [key: string]: any },
-    setItems: React.Dispatch<React.SetStateAction<{ [key: string]: any }>>,
-    setFilteredItems: React.Dispatch<React.SetStateAction<{ [key: string]: any }>>,
-    toast: any,
-    setShowUpdateConfirm: React.Dispatch<React.SetStateAction<boolean>>,
-    setClickedItem: React.Dispatch<React.SetStateAction<string | null>>,
-    setItemToDelete: React.Dispatch<React.SetStateAction<string | null>>,
-    setstatus: React.Dispatch<React.SetStateAction<string>>) => {
-    if (clickedItem) {
-
-        const item = localStorage.getItem(clickedItem);
-
-        if (item) {
-            try {
-                const parsedItem = JSON.parse(item);
-
-                parsedItem.status = status;
-
-                localStorage.setItem(clickedItem, JSON.stringify(parsedItem));
-
-                const updatedItems = { ...items };
-                updatedItems[clickedItem] = parsedItem;
-
-                setItems(updatedItems);
-                setFilteredItems(updatedItems);
-
-                setShowUpdateConfirm(false);
-                setClickedItem(null);
-                setItemToDelete(null);
-                setstatus("not-completed");
-
-                toast.success("Status updated successfully", { theme: "colored" });
-
-            } catch (e) {
-                console.error("Error updating item status:", e);
-                toast.error("Failed to update status");
-            }
-        } else {
-            console.error("Item not found in localStorage");
-        }
-    }
-}
 
 
 

@@ -36,3 +36,8 @@
     gap: 3%;
   }
   
+.firstline{
+  display: flex;
+  justify-content:space-evenly;
+}
+
