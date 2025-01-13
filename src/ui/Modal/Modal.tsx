@@ -1,13 +1,21 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { TodoContext } from '../../context/TodoContext';
 import "./Modal.css"
 interface ModalProps {
-    handleCancelDelete:()=>void;
+
   title: string;
   content: string;
-  children?: React.ReactNode; // Allow children to be passed in
+  children?: React.ReactNode;
 }
 
-const Modal: React.FC<ModalProps> = ({handleCancelDelete, title, content, children }) => {
+const Modal: React.FC<ModalProps> = ({ title, content, children }) => {
+  const context = useContext(TodoContext);
+  if (!context) {
+    return <div>Error: TodoContext is not available!</div>
+  }
+  const {
+    handleCancelDelete
+  } = context;
   return (
     <div className="modal-overlay">
       <div className="modal-container">

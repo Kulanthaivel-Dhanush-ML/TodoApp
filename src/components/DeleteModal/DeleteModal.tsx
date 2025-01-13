@@ -1,22 +1,26 @@
-import React from 'react';
-import Modal from '../../ui/Modal/Modal'; // Import the Modal component
+import React, { useContext } from 'react';
+import Modal from '../../ui/Modal/Modal'; 
+import { TodoContext } from '../../context/TodoContext';
 
-interface DeleteModalProps {
-    
-  showDeleteConfirm:boolean;
-  handleCancelDelete:()=>void;
-    handleDelete:()=>void;
-}
 
-const DeleteModal: React.FC<DeleteModalProps> = ({showDeleteConfirm, handleCancelDelete,handleDelete}) => {
+const DeleteModal: React.FC= () => {
  
-
+  const context = useContext(TodoContext);
+  if(!context)
+  {
+    return <div>Error: TodoContext is not available!</div>
+  }
+  const {
+    showDeleteConfirm,
+    handleCancelDelete,
+    handleDelete
+  } = context;
   return (
     <>
     {showDeleteConfirm &&<Modal
       title="Confirm Deletion"
       content="Are you sure you want to delete this item? This action cannot be undone."
-      handleCancelDelete={handleCancelDelete}
+      
     >
       <div className="modal-footer">
         <button className="cancel-btn" onClick={handleCancelDelete}>

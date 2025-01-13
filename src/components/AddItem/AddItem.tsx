@@ -1,4 +1,4 @@
-import { FC, useState, useEffect } from "react";
+import { FC, useState, useEffect,useMemo } from "react";
 import InputBox from "../../ui/InputBox/InputBox";
 import "./AddItem.css";
 import TextAreaBox from "../../ui/TextAreaBox/TextAreaBox";
@@ -26,16 +26,21 @@ const TextField: FC = () => {
   const [minDate, setMinDate] = useState('');
   const navigate = useNavigate();
 
+  const today = useMemo(() => {
+    const todayDate = new Date().toISOString().split('T')[0]; 
+    const currentTime = `${new Date().getHours()}:${String(new Date().getMinutes()).padStart(2, '0')}`; 
+    return { todayDate, currentTime };
+  }, []);
+
   useEffect(() => {
-    const today = new Date().toISOString().split('T')[0];
-    setMinDate(today);
+    setMinDate(today.todayDate); 
     setFormData((prevData) => ({
       ...prevData,
-      date: today,
-      fromtime: `${new Date().getHours()}:${String(new Date().getMinutes()).padStart(2, '0')}`, // Default current time
-      totime: `${new Date().getHours()}:${String(new Date().getMinutes()).padStart(2, '0')}`, // Default current time
+      date: today.todayDate, 
+      fromtime: today.currentTime, 
+      totime: today.currentTime, 
     }));
-  }, []);
+  }, [today]); 
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;

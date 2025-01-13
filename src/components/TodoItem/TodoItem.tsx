@@ -1,10 +1,10 @@
-import { FC, useState } from "react";
+import { FC, useContext, useState } from "react";
 import ReactPaginate from "react-paginate";
 import "./TodoItem.css";
 import Button from "../../ui/Button/Button";
-
+import { TodoContext } from "../../context/TodoContext";
 import {toast } from "react-toastify";
-
+import { getPriorityClass,getStatusClass } from "../../utils/utils";
 interface TodoItem {
   name: string;
   priority: string;
@@ -16,23 +16,23 @@ interface TodoItem {
   totime: string;
 }
 
-interface TodoItemProps {
-  filteredItems: { [key: string]: TodoItem };
-  clickedItem: string | null;
-  handleItemClick: (key: string) => void;
-  handleUpdateClick: (key: string | null) => void;
-  getPriorityClass: (Priority: string) => string;
-  getStatusClass: (Status: string) => string;
-}
 
-const TodoItem: FC<TodoItemProps> = ({
+
+const TodoItem: FC = ()=>{
+
+  const context = useContext(TodoContext);
+  if(!context)
+  {
+    return <div>rror: TodoContext is not available!</div>
+  }
+  const {
   filteredItems,
   clickedItem,
   handleItemClick,
   handleUpdateClick,
-  getPriorityClass,
-  getStatusClass,
-}) => {
+ 
+}=context;
+
   const [currentPage, setCurrentPage] = useState(0);
   const [selectedStatus, setSelectedStatus] = useState<string>(""); 
   const itemsPerPage = 10;
