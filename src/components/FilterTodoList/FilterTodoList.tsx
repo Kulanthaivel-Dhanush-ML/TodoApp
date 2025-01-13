@@ -20,7 +20,7 @@ interface TodoModalProps {
 }
 
 const FilterTodoList: FC<TodoModalProps> = ({
-  applyFilters,
+
   resetFilters,
   tagFilter,
   handleTagChange,
@@ -53,6 +53,7 @@ const FilterTodoList: FC<TodoModalProps> = ({
           onChange={handleDateChange}
           className="form-control-sm mb-3"
           placeholder="Filter by date"
+          setDefaultIfEmpty={false}
         />
 
         {/* React-Select Tag Filter */}
@@ -75,7 +76,6 @@ const FilterTodoList: FC<TodoModalProps> = ({
       <div className="filter-box-2">
       <div className="filter-buttons">
         <Button name="Reset Filters" color="secondary" onclick={resetFilters} />
-        <Button name="Apply Filters" color="success" onclick={applyFilters} />
       </div>
       </div>
     </div>

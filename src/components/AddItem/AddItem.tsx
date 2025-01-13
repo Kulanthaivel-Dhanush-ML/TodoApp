@@ -133,7 +133,9 @@ const TextField: FC = () => {
                 name="date"
                 value={formData.date}
                 onChange={handleChange}
+                required={true}
                 className="form-control"
+                setDefaultIfEmpty={true}
               />
             </div>
             <div className="time box">

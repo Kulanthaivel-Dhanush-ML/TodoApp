@@ -7,7 +7,7 @@ interface FromTimeProps {
   value: string;
   content: string;
   required?: boolean;
-  onTimeChange: (time: string) => void; // Update to pass the string value directly
+  onTimeChange: (time: string) => void; 
 }
 
 const TimeField: FC<FromTimeProps> = ({
@@ -20,7 +20,6 @@ const TimeField: FC<FromTimeProps> = ({
 }) => {
   const [currentTime, setCurrentTime] = useState<string>("");
 
-  // Set the default time to the current time when the component mounts
   useEffect(() => {
     const now = new Date();
     const hours = String(now.getHours()).padStart(2, "0");
@@ -29,11 +28,11 @@ const TimeField: FC<FromTimeProps> = ({
     setCurrentTime(time);
   }, []);
 
-  // Handle change in time field
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newTime = e.target.value;
-    setCurrentTime(newTime);  // Update the local state when the user changes the time
-    onTimeChange(newTime);     // Pass the changed value back to the parent component
+    setCurrentTime(newTime);  
+    onTimeChange(newTime);     
   };
 
   return (
@@ -43,7 +42,7 @@ const TimeField: FC<FromTimeProps> = ({
         name={name}
         type="time"
         className="form-control"
-        value={value || currentTime} // Use value passed down from parent, or default to currentTime
+        value={value || currentTime} 
         onChange={handleChange}
         required={required}
       />

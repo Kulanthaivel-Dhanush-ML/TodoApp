@@ -33,20 +33,26 @@ const DisplayTodo: FC = () => {
         const message = localStorage.getItem('successMessage');
         if (message) {
             toast.success(message, { theme: 'colored' });
-            // localStorage.removeItem('successMessage');
+
         }
     }, []);
 
+    useEffect(() => {
+        if (items && Object.keys(items).length > 0) {
+            handleapplyFilters(); // Apply filters when the data is loaded
+        }
+    }, [items, priorityFilter, dateFilter, tagFilter, statusFilter]);
+
     const handleapplyFilters = () => {
+        console.log()
         const filtered = applyFilters(items, priorityFilter, dateFilter, tagFilter, statusFilter)
-        toast.success("Filters Applied");
         setFilteredItems(filtered);
     }
 
     const handlePriorityChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
         setPriorityFilter(e.target.value);
         console.log("Selected Priority:", e.target.value);
-        applyFilters(items, priorityFilter, dateFilter, tagFilter, statusFilter);
+       
     };
 
     const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -55,7 +61,8 @@ const DisplayTodo: FC = () => {
 
     const handleTagChange = (selectedOptions: any) => {
         setTagFilter(selectedOptions || []);
-        applyFilters;
+        console.log(tagFilter);
+        
     };
 
 

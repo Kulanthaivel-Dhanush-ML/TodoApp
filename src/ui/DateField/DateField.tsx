@@ -7,26 +7,40 @@ interface DateFieldProps {
   className?: string;
   placeholder?: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  setDefaultIfEmpty?: boolean; 
+  required?:boolean;
 }
 
-const DateField: FC<DateFieldProps> = ({ name, value, onChange, className, placeholder, min }) => {
+const DateField: FC<DateFieldProps> = ({ 
+  name, 
+  value, 
+  onChange, 
+  className, 
+  placeholder, 
+  min, 
+  required,
+  setDefaultIfEmpty = true 
+}) => {
   const [currentDate, setCurrentDate] = useState<string>("");
 
   useEffect(() => {
-    const today = new Date().toISOString().split("T")[0]; // Getting the current date in YYYY-MM-DD format
-    setCurrentDate(today); // Set currentDate to today's date
+    const today = new Date().toISOString().split("T")[0]; 
+    setCurrentDate(today); 
   }, []);
+
+  
+  const finalValue = (setDefaultIfEmpty && !value) ? currentDate : value;
 
   return (
     <input
       name={name}
       type="date"
       className={className}
-      value={value || currentDate} // Use currentDate as the default value if value is empty
+      value={finalValue} 
       onChange={onChange}
       placeholder={placeholder}
-      min={min } // Set min date to today's date if not provided
-      required
+      min={min}
+      required={required}
     />
   );
 };
