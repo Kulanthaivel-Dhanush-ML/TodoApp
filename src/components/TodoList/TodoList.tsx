@@ -11,7 +11,7 @@ import Button from "../../ui/Button/Button";
 import DeleteModal from "../DeleteModal/DeleteModal";
 
 const DisplayTodo: FC = () => {
-    const [items, setItems] = useState<{ [key: string]: any }>({});
+    const [items, setItems] = useState<{ [key: string]: string }>({});
     const [filteredItems, setFilteredItems] = useState<{ [key: string]: any }>({});
     const [priorityFilter, setPriorityFilter] = useState<string>("All");
     const [dateFilter, setDateFilter] = useState<string>("");
@@ -39,7 +39,7 @@ const DisplayTodo: FC = () => {
 
     useEffect(() => {
         if (items && Object.keys(items).length > 0) {
-            handleapplyFilters(); // Apply filters when the data is loaded
+            handleapplyFilters(); 
         }
     }, [items, priorityFilter, dateFilter, tagFilter, statusFilter]);
 
