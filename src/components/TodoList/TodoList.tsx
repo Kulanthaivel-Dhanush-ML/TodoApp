@@ -73,7 +73,7 @@ const DisplayTodo: FC<Tag> = () => {
         <div className="todoPage">
             <div className="displayTodo">
                 <div className="displayTodoTitle" style={{ textAlign: "center" }}>
-                    <h5 style={{ color: '#69247C', textDecoration: 'underline' }}>
+                    <h5 className="TodoListTitle">
                         Your To-Do List: Turning Plans into Actions
                     </h5>
                 </div>
