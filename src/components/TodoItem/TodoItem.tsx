@@ -1,4 +1,4 @@
-import { FC,useState } from "react";
+import { FC,useMemo,useState } from "react";
 import ReactPaginate from "react-paginate";
 import "./TodoItem.css";
 import Button from "../../ui/Button/Button";
@@ -36,15 +36,20 @@ const TodoItem: FC = ()=>{
   const itemsPerPage = 10;
 
 
-  const filteredItemsArray = Object.keys(filteredItems).map(
-    (key) => filteredItems[key]
-  );
+  const filteredItemsArray = useMemo(()=>{
+    return Object.keys(filteredItems).map((key) => filteredItems[key]
+    );
+  },[filteredItems]);
 
-  const startIndex = currentPage * itemsPerPage;
-  const currentItems = filteredItemsArray.slice(
-    startIndex,
-    startIndex + itemsPerPage
-  );
+  const currentItems = useMemo(()=>
+  {
+    const startIndex = currentPage * itemsPerPage;
+    return filteredItemsArray.slice(
+      startIndex,
+      startIndex + itemsPerPage
+    );
+  },[currentPage,filteredItemsArray]);
+ 
 
   const handlePageClick = (event: { selected: number }) => {
     setCurrentPage(event.selected);
@@ -89,14 +94,13 @@ const TodoItem: FC = ()=>{
         {filteredItemsArray.length === 0 ? (
           <p className="nofound">No items found</p>
         ) : (
-          currentItems.map((item, index) => (
+          currentItems.map((item) => (
             <div
-              key={index}
+              key={item.name}
               className={`todo-item ${clickedItem === item.name ? "clicked" : ""}`}
             >
               <div className="todo-details">
                 {clickedItem === item.name ? (
-                  // When item is clicked, show the update status section
                   <div className="update-status">
                     <p>Update Status for: {item.name}</p>
                     
@@ -157,7 +161,7 @@ const TodoItem: FC = ()=>{
                           <i
                             className="fa fa-trash"
                             style={{ color: "red" }}
-                            onClick={() => handleItemClick(item.name)} // Handle delete action
+                            onClick={() => handleItemClick(item.name)} 
                           ></i>
                         </span>
                       </span>
