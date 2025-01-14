@@ -184,7 +184,7 @@ const TextField: FC = () => {
             />
             <Button
               name="Clear"
-              color="outline-primary"
+              color="secondary"
               border="none"
               text="none"
               type="button"
