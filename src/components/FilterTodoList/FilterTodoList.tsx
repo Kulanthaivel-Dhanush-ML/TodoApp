@@ -1,17 +1,14 @@
-import { FC, useContext } from "react";
+import { FC } from "react";
 import Select from 'react-select';
 import Button from "../../ui/Button/Button";
 import DateField from "../../ui/DateField/DateField";
 import RadioGp from "../../ui/RadioGroup/RadioGroup";
 import "./FilterTodoList.css";
-import { TodoContext } from "../../context/TodoContext";
+import useTodoContext from "../../hooks/useTodoContext";
 
 const FilterTodoList: FC = () => {
-  const context = useContext(TodoContext);
 
-  if (!context) {
-    return <div>Error: TodoContext is not available!</div>;
-  }
+  const context = useTodoContext();
 
   const {
     resetFilters,

@@ -1,10 +1,18 @@
 import React, { createContext, useState, FC, ReactNode, Dispatch, SetStateAction } from 'react';
 import { toast } from "react-toastify";
+import { TodoItem } from '../components/TodoItem/TodoItem';
+import { MultiValue } from 'react-select';
+
+interface Tag {
+  id: string;
+  label: string;
+}
+
 interface TodoContextType {
-  items: { [key: string]: string };
-  setItems: Dispatch<SetStateAction<{ [key: string]: string }>>;
-  filteredItems: { [key: string]: any };
-  setFilteredItems: Dispatch<SetStateAction<{ [key: string]: any }>>;
+  items: { [key: string]: TodoItem }; 
+  setItems: Dispatch<SetStateAction<{ [key: string]: TodoItem }>>;
+  filteredItems: { [key: string]: TodoItem };
+  setFilteredItems: Dispatch<SetStateAction<{ [key: string]: TodoItem }>>;
   clickedItem: string | null;
   setClickedItem: Dispatch<SetStateAction<string | null>>;
   itemToDelete: string | null;
@@ -12,15 +20,15 @@ interface TodoContextType {
   statusFilter: string;
   priorityFilter: string;
   dateFilter: string;
-  tagFilter: any[];
+  tagFilter: Tag[]; 
   setStatusFilter: (status: string) => void;
   setPriorityFilter: (priority: string) => void;
   setDateFilter: (date: string) => void;
-  setTagFilter: (tags: any[]) => void;
+  setTagFilter: (tags: Tag[]) => void; 
   resetFilters: () => void;
-  handleTagChange: (selectedOptions: any) => void;
-  setAvailableTags: Dispatch<SetStateAction<any[]>>;  // Correct typing here
-  availableTags: any[];
+  handleTagChange: (selectedOptions: MultiValue<Tag>) => void;
+  setAvailableTags: Dispatch<SetStateAction<Tag[]>>; 
+  availableTags: Tag[]; 
   handleStatusFilter: (status: string) => void;
   handlePriorityChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
   handleDateChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -29,29 +37,28 @@ interface TodoContextType {
   setShowDeleteConfirm: Dispatch<SetStateAction<boolean>>;
   handleDelete: () => void;
   handleCancelDelete: () => void;
-  handleUpdateClick: (key:string|null) => void;
+  handleUpdateClick: (key: string | null) => void;
 }
 
-
 export const TodoContext = createContext<TodoContextType | undefined>(undefined);
-
 
 interface TodoProviderProps {
   children: ReactNode;
 }
 
 export const TodoProvider: FC<TodoProviderProps> = ({ children }) => {
-  const [items, setItems] = useState<{ [key: string]: string }>({});
-  const [filteredItems, setFilteredItems] = useState<{ [key: string]: any }>({});
+  const [items, setItems] = useState<{ [key: string]: TodoItem }>({});
+  const [filteredItems, setFilteredItems] = useState<{ [key: string]: TodoItem }>({});
   const [statusFilter, setStatusFilter] = useState("All");
   const [priorityFilter, setPriorityFilter] = useState("All");
   const [dateFilter, setDateFilter] = useState("");
-  const [tagFilter, setTagFilter] = useState<any[]>([]);
-  const [availableTags, setAvailableTags] = useState<any[]>([]);
+  const [tagFilter, setTagFilter] = useState<Tag[]>([]);
+  const [availableTags, setAvailableTags] = useState<Tag[]>([]);
   const [clickedItem, setClickedItem] = useState<string | null>(null);
   const [itemToDelete, setItemToDelete] = useState<string | null>(null);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState<boolean>(false);
-  const handleTagChange = (selectedOptions: any) => {setTagFilter(selectedOptions);};
+
+  const handleTagChange = (selectedOptions: MultiValue<Tag>) => { const selectedTags=[...selectedOptions]; setTagFilter(selectedTags); };
 
   const handleStatusFilter = (status: string) => {
     setStatusFilter(status);
@@ -98,10 +105,10 @@ export const TodoProvider: FC<TodoProviderProps> = ({ children }) => {
     setItemToDelete(null);
     setClickedItem(null);
   };
+
   const handleUpdateClick = (key: string | null) => {
     setClickedItem(key);
-
-  }
+  };
 
   return (
     <TodoContext.Provider
@@ -124,7 +131,7 @@ export const TodoProvider: FC<TodoProviderProps> = ({ children }) => {
         setTagFilter,
         resetFilters,
         handleTagChange,
-        setAvailableTags,  
+        setAvailableTags,
         availableTags,
         handleStatusFilter,
         handlePriorityChange,
@@ -137,7 +144,7 @@ export const TodoProvider: FC<TodoProviderProps> = ({ children }) => {
         handleUpdateClick
       }}
     >
-      {children} 
+      {children}
     </TodoContext.Provider>
   );
 };

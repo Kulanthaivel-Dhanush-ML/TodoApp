@@ -1,11 +1,12 @@
-import { FC, useContext, useState } from "react";
+import { FC,useState } from "react";
 import ReactPaginate from "react-paginate";
 import "./TodoItem.css";
 import Button from "../../ui/Button/Button";
-import { TodoContext } from "../../context/TodoContext";
+
 import {toast } from "react-toastify";
 import { getPriorityClass,getStatusClass } from "../../utils/utils";
-interface TodoItem {
+import useTodoContext from "../../hooks/useTodoContext";
+export interface TodoItem {
   name: string;
   priority: string;
   status: string;
@@ -20,11 +21,8 @@ interface TodoItem {
 
 const TodoItem: FC = ()=>{
 
-  const context = useContext(TodoContext);
-  if(!context)
-  {
-    return <div>rror: TodoContext is not available!</div>
-  }
+  const context = useTodoContext();
+  
   const {
   filteredItems,
   clickedItem,

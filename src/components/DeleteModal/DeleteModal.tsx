@@ -1,15 +1,10 @@
-import React, { useContext } from 'react';
 import Modal from '../../ui/Modal/Modal'; 
-import { TodoContext } from '../../context/TodoContext';
-
+import useTodoContext from '../../hooks/useTodoContext';
 
 const DeleteModal: React.FC= () => {
  
-  const context = useContext(TodoContext);
-  if(!context)
-  {
-    return <div>Error: TodoContext is not available!</div>
-  }
+  const context = useTodoContext();
+  
   const {
     showDeleteConfirm,
     handleCancelDelete,

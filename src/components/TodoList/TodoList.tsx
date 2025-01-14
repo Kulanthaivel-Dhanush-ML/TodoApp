@@ -1,4 +1,4 @@
-import { FC, useEffect, useContext } from "react";
+import { FC, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./TodoList.css";
 import { ToastContainer, toast } from 'react-toastify';
@@ -7,14 +7,14 @@ import TodoItem from "../TodoItem/TodoItem";
 import { applyFilters, getAllItemsFromLocalStorage, sortItems } from "../../utils/utils";
 import Button from "../../ui/Button/Button";
 import DeleteModal from "../DeleteModal/DeleteModal";
-import { TodoContext } from "../../context/TodoContext";
-
-const DisplayTodo: FC = () => {
-    const context = useContext(TodoContext); // Get context value
-
-    if (!context) {
-        return <div>Error: TodoContext is not available!</div>;
-    }
+import useTodoContext from "../../hooks/useTodoContext";
+interface Tag {
+    id: string;
+    label: string;
+  }
+const DisplayTodo: FC<Tag> = () => {
+    
+    const context = useTodoContext();
 
     const {
         items,
@@ -28,16 +28,16 @@ const DisplayTodo: FC = () => {
 
     } = context;
 
-
-
-
-
     useEffect(() => {
         const { allItems, tags } = getAllItemsFromLocalStorage();
         const sortedItems = sortItems(allItems);
         setItems(sortedItems);
         setFilteredItems(sortedItems);
-        setAvailableTags(Array.from(tags).map(tag => ({ value: tag, label: tag })));
+        setAvailableTags(Array.from(tags).map((tag, index) => ({
+            id: `${index + 1}`, 
+            value: tag,
+            label: tag
+        })));
 
         const message = localStorage.getItem('successMessage');
         if (message) {
