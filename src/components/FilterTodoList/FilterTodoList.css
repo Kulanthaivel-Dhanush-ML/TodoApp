@@ -22,3 +22,10 @@
     font-size:large;
    
 }
+
+.filter-title
+{
+    margin-left: 3%;
+    font-size: medium;
+    font-weight: 500;
+}

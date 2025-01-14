@@ -23,7 +23,7 @@ const FilterTodoList: FC = () => {
   } = context;
   return (
     <div>
-      <h5 className="modal-title">Filter</h5>
+      <p className="filter-title">FILTER :</p>
 
       <div className="filter-container">
         <div className="filter-box">
