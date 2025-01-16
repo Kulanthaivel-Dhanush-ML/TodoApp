@@ -8,11 +8,8 @@ import { applyFilters, getAllItemsFromLocalStorage, sortItems } from "../../util
 import Button from "../../ui/Button/Button";
 import DeleteModal from "../DeleteModal/DeleteModal";
 import useTodoContext from "../../hooks/useTodoContext";
-interface Tag {
-    id: string;
-    label: string;
-  }
-const DisplayTodo: FC<Tag> = () => {
+
+const DisplayTodo: FC = () => {
     
     const context = useTodoContext();
 
@@ -88,7 +85,7 @@ const DisplayTodo: FC<Tag> = () => {
                     </div>
                 </div>
 
-                <FilterTodoList /> {/* No props passed here */}
+                <FilterTodoList /> 
 
                 <TodoItem
 
