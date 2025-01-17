@@ -1,4 +1,6 @@
-import { FC, useState, useEffect,useMemo } from "react";
+import { FC, useEffect,useMemo } from "react";
+import { useDispatch,useSelector } from "react-redux";
+import { setFormData,resetForm,setMinDate } from "./AddItemSlice";
 import InputBox from "../../ui/InputBox/InputBox";
 import "./AddItem.css";
 import TextAreaBox from "../../ui/TextAreaBox/TextAreaBox";
@@ -9,21 +11,14 @@ import TimeField from "../../ui/Time/TimeField";
 import { Label } from "../../ui/Label/Label";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
+import { RootState } from "../../store/store";
 
 const TextField: FC = () => {
-  const initialFormData = {
-    name: '',
-    description: '',
-    priority: '',
-    date: '',
-    fromtime: '',
-    totime: '',
-    tag: '',
-    status: 'not-completed',
-  };
-
-  const [formData, setFormData] = useState(initialFormData);
-  const [minDate, setMinDate] = useState('');
+ 
+  const dispatch = useDispatch();
+  const formData = useSelector((state:RootState)=>state.addItem.form);
+  const minDate = useSelector((state:RootState)=>state.addItem.minDate);
+  
   const navigate = useNavigate();
 
   const today = useMemo(() => {
@@ -33,42 +28,43 @@ const TextField: FC = () => {
   }, []);
 
   useEffect(() => {
-    setMinDate(today.todayDate); 
-    setFormData((prevData) => ({
-      ...prevData,
+    dispatch(setMinDate(today.todayDate)); 
+    dispatch(setFormData({
+      ...formData,
       date: today.todayDate, 
       fromtime: today.currentTime, 
       totime: today.currentTime, 
     }));
-  }, [today]); 
+    
+  }, [today,dispatch]); 
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
-    setFormData({
+    dispatch(setFormData({
       ...formData,
       [name]: value,
-    });
+    }));
   };
 
   const handlePriorityChange = (priority: string) => {
-    setFormData({
+    dispatch(setFormData({
       ...formData,
       priority,
-    });
+    }));
   };
 
   const handletoTimeChange = (totime: string) => {
-    setFormData({
+    dispatch(setFormData({
       ...formData,
       totime,
-    });
+    }));
   };
 
   const handlefromTimeChange = (fromtime: string) => {
-    setFormData({
+    dispatch(setFormData({
       ...formData,
       fromtime,
-    });
+    }));
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -80,11 +76,11 @@ const TextField: FC = () => {
     toast.success("Success", { theme: "colored" });
     localStorage.setItem(formData.name, JSON.stringify(formData));
     navigate('/');
-    setFormData(initialFormData);
+    dispatch(resetForm());
   };
 
   const handleClear = () => {
-    setFormData(initialFormData);
+    dispatch(resetForm());
   };
 
   return (

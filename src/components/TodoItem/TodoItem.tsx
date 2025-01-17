@@ -1,11 +1,13 @@
-import { FC,useMemo,useState } from "react";
+import { FC, useMemo, useState } from "react";
 import ReactPaginate from "react-paginate";
 import "./TodoItem.css";
 import Button from "../../ui/Button/Button";
+import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
+import { getPriorityClass, getStatusClass } from "../../utils/utils";
+import { RootState } from "../../store/store";
+import { handleUpdateClick, handleItemClick,handleUpdateStatus } from "../TodoList/TodoSlice";
 
-import {toast } from "react-toastify";
-import { getPriorityClass,getStatusClass } from "../../utils/utils";
-import useTodoContext from "../../hooks/useTodoContext";
 export interface TodoItem {
   name: string;
   priority: string;
@@ -17,60 +19,45 @@ export interface TodoItem {
   totime: string;
 }
 
-
-
-const TodoItem: FC = ()=>{
-
-  const context = useTodoContext();
-  
-  const {
-  filteredItems,
-  clickedItem,
-  handleItemClick,
-  handleUpdateClick,
- 
-}=context;
+const TodoItem: FC = () => {
+  const dispatch = useDispatch();
+  const { filteredItems, clickedItem } = useSelector((state: RootState) => state.todo);
 
   const [currentPage, setCurrentPage] = useState(0);
-  const [selectedStatus, setSelectedStatus] = useState<string>(""); 
+  const [selectedStatus, setSelectedStatus] = useState<string>("");
+
   const itemsPerPage = 10;
 
+  const filteredItemsArray = useMemo(() => {
+    return Object.keys(filteredItems).map((key) => filteredItems[key]);
+  }, [filteredItems]);
 
-  const filteredItemsArray = useMemo(()=>{
-    return Object.keys(filteredItems).map((key) => filteredItems[key]
-    );
-  },[filteredItems]);
-
-  const currentItems = useMemo(()=>
-  {
-    const startIndex = currentPage * itemsPerPage;
-    return filteredItemsArray.slice(
-      startIndex,
-      startIndex + itemsPerPage
-    );
-  },[currentPage,filteredItemsArray]);
- 
+  const currentItems = filteredItemsArray.slice(
+    currentPage * itemsPerPage,
+    (currentPage + 1) * itemsPerPage
+  );
 
   const handlePageClick = (event: { selected: number }) => {
     setCurrentPage(event.selected);
   };
 
- 
   const handleStatusChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSelectedStatus(event.target.value);
-
   };
 
- 
   const handleSaveStatus = (item: TodoItem) => {
-    if (selectedStatus!=="null") {
-      item.status = selectedStatus; 
-      handleUpdateClick(null); 
-
+    if (selectedStatus !== "null" && selectedStatus) {
+      dispatch(handleUpdateStatus({ name: item.name, status: selectedStatus }));
+      dispatch(handleUpdateClick(null)); 
     } else {
       toast.error("Please select a status.");
     }
   };
+
+  const handleSaveClick = () => {
+    dispatch(handleUpdateClick(null));  
+  };
+  
 
   return (
     <>
@@ -103,7 +90,6 @@ const TodoItem: FC = ()=>{
                 {clickedItem === item.name ? (
                   <div className="update-status">
                     <p>Update Status for: {item.name}</p>
-                    
                     <div>
                       <label>
                         <input
@@ -127,28 +113,37 @@ const TodoItem: FC = ()=>{
                       </label>
                     </div>
                     <div className="Button-gp-up">
-                    <Button type="button" color="success" onclick={() => handleSaveStatus(item)} name="Save"/>
-                    <Button type="button" color="secondary" onclick={() => handleUpdateClick(null)} name="Cancel"/></div>
+                      <Button
+                        type="button"
+                        color="success"
+                        onclick={() => handleSaveStatus(item)}
+                        name="Save"
+                      />
+                      <Button
+                        type="button"
+                        color="secondary"
+                        onclick={handleSaveClick}
+                        name="Cancel"
+                      />
+                    </div>
                   </div>
                 ) : (
-                  // Default display of the todo item
                   <div className="firstpart">
                     <div className="firstline">
-                    <p className="todoname" title={item.name}>
-                      {item.name}</p>
-                      
+                      <p className="todoname" title={item.name}>
+                        {item.name}
+                      </p>
+
                       <span className="extra-details">
-                        <span
-                          className={`todopriority ${getPriorityClass(item.priority)}`}
-                        >
+                        <span className={`todopriority ${getPriorityClass(item.priority)}`}>
                           {item.priority}
                         </span>
                         &nbsp;
                         <span
                           className={`todostatus ${getStatusClass(item.status)}`}
-                          onClick={() => handleUpdateClick(item.name)} 
-                          onMouseEnter={(e) => (e.currentTarget.innerText = "Change Status")} 
-                          onMouseLeave={(e) => (e.currentTarget.innerText = item.status)} 
+                          onClick={() => dispatch(handleUpdateClick(item.name))}
+                          onMouseEnter={(e) => (e.currentTarget.innerText = "Change Status")}
+                          onMouseLeave={(e) => (e.currentTarget.innerText = item.status)}
                         >
                           {item.status}
                         </span>
@@ -161,33 +156,30 @@ const TodoItem: FC = ()=>{
                           <i
                             className="fa fa-trash"
                             style={{ color: "red" }}
-                            onClick={() => handleItemClick(item.name)} 
+                            onClick={() => dispatch(handleItemClick(item.name))}
                           ></i>
                         </span>
                       </span>
-                      </div>
-                    
+                    </div>
+
                     <p className="tododesc">{item.description}</p>
                   </div>
                 )}
                 <div className="timedetails">
-                <p className="tododate">
-                  <i className="fa fa-calendar">&nbsp;</i>
-                  {item.date}
-                </p>
-                <p className="todotime">
-                  <i className="fa fa-arrow-right">&nbsp;</i>
-                  {item.fromtime} - {item.totime}
-                </p>
+                  <p className="tododate">
+                    <i className="fa fa-calendar">&nbsp;</i>
+                    {item.date}
+                  </p>
+                  <p className="todotime">
+                    <i className="fa fa-arrow-right">&nbsp;</i>
+                    {item.fromtime} - {item.totime}
+                  </p>
+                </div>
               </div>
-              </div>
-
-              
             </div>
           ))
         )}
       </div>
-      
     </>
   );
 };

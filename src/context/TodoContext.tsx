@@ -98,6 +98,7 @@ export const TodoProvider: FC<TodoProviderProps> = ({ children }) => {
     setShowDeleteConfirm(false);
     setClickedItem(null);
     setItemToDelete(null);
+    
   };
 
   const handleCancelDelete = () => {

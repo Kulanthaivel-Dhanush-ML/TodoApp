@@ -7,53 +7,60 @@ import TodoItem from "../TodoItem/TodoItem";
 import { applyFilters, getAllItemsFromLocalStorage, sortItems } from "../../utils/utils";
 import Button from "../../ui/Button/Button";
 import DeleteModal from "../DeleteModal/DeleteModal";
-import useTodoContext from "../../hooks/useTodoContext";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../store/store";
+import {
+    setItems,
+    setFilteredItems,
+    setAvailableTags,
+
+} from "../../components/TodoList/TodoSlice";
+
 interface Tag {
     id: string;
     label: string;
-  }
+}
+
 const DisplayTodo: FC<Tag> = () => {
-    
-    const context = useTodoContext();
+    const dispatch = useDispatch();
 
     const {
         items,
-        setFilteredItems,
-        setItems,
-        tagFilter,
-        dateFilter,
-        priorityFilter,
-        setAvailableTags,
         statusFilter,
-
-    } = context;
+        priorityFilter,
+        dateFilter,
+        tagFilter
+    } = useSelector((state: RootState) => state.todo);
 
     useEffect(() => {
+        
         const { allItems, tags } = getAllItemsFromLocalStorage();
         const sortedItems = sortItems(allItems);
-        setItems(sortedItems);
-        setFilteredItems(sortedItems);
-        setAvailableTags(Array.from(tags).map((tag, index) => ({
-            id: `${index + 1}`, 
-            value: tag,
-            label: tag
-        })));
+        dispatch(setItems(sortedItems));
+        dispatch(setFilteredItems(sortedItems));
+        dispatch(setAvailableTags(
+            Array.from(tags).map((tag, index) => ({
+                id: `${index + 1}`,
+                value: tag,
+                label: tag,
+            }))
+        ));
 
         const message = localStorage.getItem('successMessage');
         if (message) {
             toast.success(message, { theme: 'colored' });
         }
-    }, []);
+    }, [dispatch]);
 
     useEffect(() => {
         if (items && Object.keys(items).length > 0) {
-            handleapplyFilters();
+            handleApplyFilters();
         }
     }, [items, priorityFilter, dateFilter, tagFilter, statusFilter]);
 
-    const handleapplyFilters = () => {
+    const handleApplyFilters = () => {
         const filtered = applyFilters(items, priorityFilter, dateFilter, tagFilter, statusFilter);
-        setFilteredItems(filtered);
+        dispatch(setFilteredItems(filtered));
     };
 
     const getAppliedFilters = () => {
@@ -61,13 +68,11 @@ const DisplayTodo: FC<Tag> = () => {
         if (priorityFilter !== "All") filters.push(`Priority: ${priorityFilter}`);
         if (dateFilter) filters.push(`Date: ${dateFilter}`);
         if (tagFilter.length > 0) filters.push(`Tags: ${tagFilter.map(tag => tag.label).join(", ")}`);
-        if (statusFilter !== "All") filters.push(`status: ${statusFilter}`);
+        if (statusFilter !== "All") filters.push(`Status: ${statusFilter}`);
         return filters.length > 0 ? (
             <><i className="fa fa-filter"></i> {filters.join(" | ")}</>
         ) : "";
     };
-
-
 
     return (
         <div className="todoPage">
@@ -88,15 +93,11 @@ const DisplayTodo: FC<Tag> = () => {
                     </div>
                 </div>
 
-                <FilterTodoList /> {/* No props passed here */}
+                <FilterTodoList /> 
 
-                <TodoItem
+                <TodoItem />
 
-                />
-
-                <DeleteModal
-
-                />
+                <DeleteModal />
             </div>
 
             <ToastContainer />
