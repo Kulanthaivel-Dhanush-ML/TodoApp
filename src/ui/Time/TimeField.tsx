@@ -7,7 +7,7 @@ interface FromTimeProps {
   value: string;
   content: string;
   required?: boolean;
-  onTimeChange: (time: string) => void; 
+  onTimeChange: (time: string) => void;
 }
 
 const TimeField: FC<FromTimeProps> = ({
@@ -28,11 +28,10 @@ const TimeField: FC<FromTimeProps> = ({
     setCurrentTime(time);
   }, []);
 
-
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newTime = e.target.value;
-    setCurrentTime(newTime);  
-    onTimeChange(newTime);     
+    setCurrentTime(newTime);
+    onTimeChange(newTime);
   };
 
   return (
@@ -42,7 +41,7 @@ const TimeField: FC<FromTimeProps> = ({
         name={name}
         type="time"
         className="form-control"
-        value={value || currentTime} 
+        value={value || currentTime}
         onChange={handleChange}
         required={required}
       />

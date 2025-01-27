@@ -1,46 +1,42 @@
 import { FC } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import Select from 'react-select';
+import Select from "react-select";
 import Button from "../../ui/Button/Button";
 import DateField from "../../ui/DateField/DateField";
 import RadioGp from "../../ui/RadioGroup/RadioGroup";
 import "./FilterTodoList.css";
-import { RootState } from "../../store/store"; 
+import { RootState } from "../../store/store";
 import {
   handlePriorityChange,
   handleDateChange,
   handleTagFilter,
   handleStatusFilter,
   resetFilters,
-} from "../../components/TodoList/TodoSlice"; 
+} from "../../components/TodoList/TodoSlice";
 
 const FilterTodoList: FC = () => {
- 
   const dispatch = useDispatch();
 
-  const {
-    tagFilter,
-    availableTags,
-    priorityFilter,
-    dateFilter,
-  } = useSelector((state: RootState) => state.todo);
+  const { tagFilter, availableTags, priorityFilter, dateFilter } = useSelector(
+    (state: RootState) => state.todo,
+  );
 
- 
-  const handlePriorityChangeEvent = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    dispatch(handlePriorityChange(e.target.value)); 
+  const handlePriorityChangeEvent = (
+    e: React.ChangeEvent<HTMLSelectElement>,
+  ) => {
+    dispatch(handlePriorityChange(e.target.value));
   };
 
   const handleDateChangeEvent = (e: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch(handleDateChange(e.target.value)); 
+    dispatch(handleDateChange(e.target.value));
   };
 
- 
   const handleTagChangeEvent = (selectedOptions: any) => {
-    dispatch(handleTagFilter(selectedOptions)); 
+    dispatch(handleTagFilter(selectedOptions));
   };
 
   const handleStatusChange = (selectedValue: string) => {
-    dispatch(handleStatusFilter(selectedValue)); 
+    dispatch(handleStatusFilter(selectedValue));
   };
 
   const handleresetFilters = () => {
@@ -59,7 +55,9 @@ const FilterTodoList: FC = () => {
             value={priorityFilter}
             className="form-select-sm select-filter mb-3"
           >
-            <option value="select" disabled>select</option>
+            <option value="select" disabled>
+              select
+            </option>
             <option value="All">All Priorities</option>
             <option value="Low">Low</option>
             <option value="Medium">Medium</option>
@@ -70,7 +68,7 @@ const FilterTodoList: FC = () => {
           <DateField
             name=""
             value={dateFilter}
-            onChange={handleDateChangeEvent} 
+            onChange={handleDateChangeEvent}
             className="form-control-sm mb-3"
             placeholder="Filter by date"
             setDefaultIfEmpty={false}
@@ -102,7 +100,7 @@ const FilterTodoList: FC = () => {
           <Button
             name="Reset Filters"
             color="secondary"
-            onclick={handleresetFilters} 
+            onclick={handleresetFilters}
           />
         </div>
       </div>

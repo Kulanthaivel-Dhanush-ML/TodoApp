@@ -6,7 +6,7 @@ import Modal from "../../ui/Modal/Modal";
 
 const DeleteModal: FC = () => {
   const dispatch = useDispatch();
-  const { showDeleteConfirm} = useSelector((state: RootState) => state.todo);
+  const { showDeleteConfirm } = useSelector((state: RootState) => state.todo);
 
   return (
     <>
@@ -18,13 +18,13 @@ const DeleteModal: FC = () => {
           <div className="modal-footer">
             <button
               className="cancel-btn"
-              onClick={() => dispatch(handleCancelDelete())} 
+              onClick={() => dispatch(handleCancelDelete())}
             >
               Cancel
             </button>
             <button
               className="delete-btn"
-              onClick={() => dispatch(handleDelete())} 
+              onClick={() => dispatch(handleDelete())}
             >
               Delete
             </button>

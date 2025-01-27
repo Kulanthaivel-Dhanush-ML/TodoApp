@@ -1,8 +1,7 @@
-import React, { useContext } from 'react';
-import { TodoContext } from '../../context/TodoContext';
-import "./Modal.css"
+import React, { useContext } from "react";
+import { TodoContext } from "../../context/TodoContext";
+import "./Modal.css";
 interface ModalProps {
-
   title: string;
   content: string;
   children?: React.ReactNode;
@@ -11,11 +10,9 @@ interface ModalProps {
 const Modal: React.FC<ModalProps> = ({ title, content, children }) => {
   const context = useContext(TodoContext);
   if (!context) {
-    return <div>Error: TodoContext is not available!</div>
+    return <div>Error: TodoContext is not available!</div>;
   }
-  const {
-    handleCancelDelete
-  } = context;
+  const { handleCancelDelete } = context;
   return (
     <div className="modal-overlay">
       <div className="modal-container">

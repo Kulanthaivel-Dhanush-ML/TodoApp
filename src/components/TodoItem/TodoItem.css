@@ -1,52 +1,50 @@
-
 .pagination {
-    display: flex;
-    list-style: none;
-    padding: 0;
-    margin-top: 20px;
-    justify-content: center;
-    background-color:#A888B5;
-    margin: 2% 24%;
-    padding: 1%;
-    border-radius: 10px;
-  }
-
-  .pagination .previous a,.next a{
-    background-color:#69247C;
-    text-decoration: none;
-    color:white; /* Change to your desired color */
-    font-weight:400;
-    border-radius: 10px;
-    padding: 4px 10px;
-  }
-  
-  .pagination li {
-    margin: 0 10px;
-  }
-  
-  .pagination .active {
-    font-weight: bold;
-  }
-  
-  .pagination button {
-    padding: 5px 10px;
-    cursor: pointer;
-  }
-  
-  .nofound {
-    text-align: center;
-    color: red;
-  }
-  
-  .Button-gp-up
-  {
-    display: flex;
-    justify-content: flex-start;
-    gap: 3%;
-  }
-  
-.firstline{
   display: flex;
-  justify-content:space-evenly;
+  list-style: none;
+  padding: 0;
+  margin-top: 20px;
+  justify-content: center;
+  background-color: #a888b5;
+  margin: 2% 24%;
+  padding: 1%;
+  border-radius: 10px;
 }
 
+.pagination .previous a,
+.next a {
+  background-color: #69247c;
+  text-decoration: none;
+  color: white; /* Change to your desired color */
+  font-weight: 400;
+  border-radius: 10px;
+  padding: 4px 10px;
+}
+
+.pagination li {
+  margin: 0 10px;
+}
+
+.pagination .active {
+  font-weight: bold;
+}
+
+.pagination button {
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.nofound {
+  text-align: center;
+  color: red;
+}
+
+.Button-gp-up {
+  display: flex;
+  justify-content: flex-start;
+  gap: 3%;
+}
+
+.firstline {
+  display: flex;
+  justify-content: space-evenly;
+}

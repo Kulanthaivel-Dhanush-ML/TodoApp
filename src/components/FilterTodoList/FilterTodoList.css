@@ -1,31 +1,24 @@
-.statusfilter
-{
-    display: inline;
-    gap: 0%;
-
+.statusfilter {
+  display: inline;
+  gap: 0%;
 }
 
-.completed
-{
-    background-color: #AD8AB7;
-    padding: 10px 15px;
-    font-weight: 500;
-    font-size:large;
-    
+.completed {
+  background-color: #ad8ab7;
+  padding: 10px 15px;
+  font-weight: 500;
+  font-size: large;
 }
 
-.not-completed
-{
-    background-color: #AD8AB7;
-    padding: 10px 15px;
-    font-weight: 500;
-    font-size:large;
-   
+.not-completed {
+  background-color: #ad8ab7;
+  padding: 10px 15px;
+  font-weight: 500;
+  font-size: large;
 }
 
-.filter-title
-{
-    margin-left: 3%;
-    font-size: medium;
-    font-weight: 500;
+.filter-title {
+  margin-left: 3%;
+  font-size: medium;
+  font-weight: 500;
 }

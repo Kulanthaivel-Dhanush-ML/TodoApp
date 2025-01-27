@@ -15,6 +15,7 @@ import { RootState } from "../../store/store";
 
 const TextField: FC = () => {
  
+  
   const dispatch = useDispatch();
   const formData = useSelector((state:RootState)=>state.addItem.form);
   const minDate = useSelector((state:RootState)=>state.addItem.minDate);
@@ -66,18 +67,31 @@ const TextField: FC = () => {
       fromtime,
     }));
   };
+  useEffect(() => {
+    console.log("Form data after reset:", formData); 
+  }, [formData]);
 
   const handleSubmit = (e: React.FormEvent) => {
+    
     e.preventDefault();
+  
     if (!formData.name || !formData.description || !formData.priority || !formData.tag) {
       toast.error("Please fill out all fields before submitting the form.", { theme: "colored" });
       return;
     }
+  
     toast.success("Success", { theme: "colored" });
+  
+    // Store the form data in localStorage
     localStorage.setItem(formData.name, JSON.stringify(formData));
-    navigate('/');
+  
+    // Dispatch resetForm after successful form submission
     dispatch(resetForm());
+  
+    // Navigate to another page (if necessary)
+    navigate('/');
   };
+  
 
   const handleClear = () => {
     dispatch(resetForm());
@@ -175,7 +189,7 @@ const TextField: FC = () => {
               color="success"
               border="none"
               text="white"
-              type="button"
+              type="submit"
               onclick={handleSubmit}
             />
             <Button

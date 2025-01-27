@@ -6,7 +6,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { getPriorityClass, getStatusClass } from "../../utils/utils";
 import { RootState } from "../../store/store";
-import { handleUpdateClick, handleItemClick,handleUpdateStatus } from "../TodoList/TodoSlice";
+import {
+  handleUpdateClick,
+  handleItemClick,
+  handleUpdateStatus,
+} from "../TodoList/TodoSlice";
 
 export interface TodoItem {
   name: string;
@@ -21,7 +25,9 @@ export interface TodoItem {
 
 const TodoItem: FC = () => {
   const dispatch = useDispatch();
-  const { filteredItems, clickedItem } = useSelector((state: RootState) => state.todo);
+  const { filteredItems, clickedItem } = useSelector(
+    (state: RootState) => state.todo,
+  );
 
   const [currentPage, setCurrentPage] = useState(0);
   const [selectedStatus, setSelectedStatus] = useState<string>("");
@@ -34,7 +40,7 @@ const TodoItem: FC = () => {
 
   const currentItems = filteredItemsArray.slice(
     currentPage * itemsPerPage,
-    (currentPage + 1) * itemsPerPage
+    (currentPage + 1) * itemsPerPage,
   );
 
   const handlePageClick = (event: { selected: number }) => {
@@ -48,16 +54,15 @@ const TodoItem: FC = () => {
   const handleSaveStatus = (item: TodoItem) => {
     if (selectedStatus !== "null" && selectedStatus) {
       dispatch(handleUpdateStatus({ name: item.name, status: selectedStatus }));
-      dispatch(handleUpdateClick(null)); 
+      dispatch(handleUpdateClick(null));
     } else {
       toast.error("Please select a status.");
     }
   };
 
   const handleSaveClick = () => {
-    dispatch(handleUpdateClick(null));  
+    dispatch(handleUpdateClick(null));
   };
-  
 
   return (
     <>
@@ -135,15 +140,21 @@ const TodoItem: FC = () => {
                       </p>
 
                       <span className="extra-details">
-                        <span className={`todopriority ${getPriorityClass(item.priority)}`}>
+                        <span
+                          className={`todopriority ${getPriorityClass(item.priority)}`}
+                        >
                           {item.priority}
                         </span>
                         &nbsp;
                         <span
                           className={`todostatus ${getStatusClass(item.status)}`}
                           onClick={() => dispatch(handleUpdateClick(item.name))}
-                          onMouseEnter={(e) => (e.currentTarget.innerText = "Change Status")}
-                          onMouseLeave={(e) => (e.currentTarget.innerText = item.status)}
+                          onMouseEnter={(e) =>
+                            (e.currentTarget.innerText = "Change Status")
+                          }
+                          onMouseLeave={(e) =>
+                            (e.currentTarget.innerText = item.status)
+                          }
                         >
                           {item.status}
                         </span>
